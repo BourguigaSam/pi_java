@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.Interface_registerController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="11.0" layoutY="10.0" prefHeight="474.0" prefWidth="737.0">
+         <children>
+            <Pane layoutX="-13.0" layoutY="-10.0" prefHeight="484.0" prefWidth="168.0" style="-fx-background-color: #3399ff;">
+               <children>
+                  <Button layoutX="26.0" layoutY="14.0" mnemonicParsing="false" onAction="#retour" style="-fx-background-color: transparent;" text="Retour" textFill="WHITE" />
+                  <FontAwesomeIcon fill="WHITE" iconName="DASHBOARD" layoutX="8.0" layoutY="31.0" />
+               </children></Pane>
+            <Text fill="#0080ff" layoutX="191.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register">
+               <font>
+                  <Font name="Arial Bold" size="37.0" />
+               </font>
+            </Text>
+            <TextField fx:id="username" layoutX="191.0" layoutY="116.0" prefHeight="34.0" prefWidth="196.0" promptText="Username" />
+            <TextField fx:id="phone" layoutX="489.0" layoutY="114.0" prefHeight="34.0" prefWidth="196.0" promptText="Phone" />
+            <TextField fx:id="email" layoutX="191.0" layoutY="192.0" prefHeight="34.0" prefWidth="196.0" promptText="Email" />
+            <TextField fx:id="email1" layoutX="489.0" layoutY="189.0" prefHeight="34.0" prefWidth="196.0" promptText="Retype Email" />
+            <TextField fx:id="pass" layoutX="191.0" layoutY="271.0" prefHeight="34.0" prefWidth="196.0" promptText="Password" />
+            <TextField fx:id="pass1" layoutX="489.0" layoutY="267.0" prefHeight="34.0" prefWidth="196.0" promptText="Retype Password" />
+            <Button layoutX="483.0" layoutY="354.0" mnemonicParsing="false" onAction="#register" prefHeight="50.0" prefWidth="209.0" style="-fx-background-color: #0080ff;" text="Register" textFill="WHITE" />
+            <Label fx:id="terms" layoutX="211.0" layoutY="428.0" textFill="#f06c6c">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="conditions" layoutX="208.0" layoutY="371.0" mnemonicParsing="false" text="i agree on all conditions" />
+            <Button layoutX="546.0" layoutY="419.0" mnemonicParsing="false" onAction="#resetAll" style="-fx-background-color: transparent;" text="Reset All" textFill="#3399ff">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
