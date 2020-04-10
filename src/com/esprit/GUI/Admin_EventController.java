@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
@@ -149,7 +147,7 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
         }
         });
 
- btnUpdate .setOnMouseClicked(x -> {
+/* btnUpdate .setOnMouseClicked(x -> {
  Evenement cat = new Evenement();
 cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
 
@@ -164,27 +162,8 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
             // get Selected Item
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir modifier cet evenement", ButtonType.YES, ButtonType.NO, null);
             alert.showAndWait();
-     try {
-         Statement statement = null;
-        ResultSet resultSet = null;
-   
-         idT.setText(resultSet.getString("id"));
-           nomT.setText(resultSet.getString("nom"));
 
-                nbreT.setText(resultSet.getString("nbre_participants"));
-                lieuxT.setText(resultSet.getString("lieu"));
-                prixT.setText(resultSet.getString("prix"));
-                nbreT.setText(resultSet.getString("type"));
-            
-     } catch (SQLException ex) {
-         Logger.getLogger(Admin_EventController.class.getName()).log(Level.SEVERE, null, ex);
-     }
-              
-            
             if (alert.getResult() == ButtonType.YES) {
-                
-                
-
                 //remove selected item from the table list
                 serviceEvenement.modifier(cat);
                 //bonplanService.SupprimerCategorie(cat);
@@ -194,9 +173,75 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
             ChargerEvenement();
             }
         }
-        });
+        });*/
 
-     }    
+ tableView.setOnMouseClicked(e->{
+      Evenement cat = new Evenement();
+cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
+idT.setText(String.valueOf(cat.getId()));
+                 nomT.setText(cat.getNom());
+                 nbreT.setText(String.valueOf(cat.getNbre_participants()));
+                 lieuxT.setText(cat.getLieu());
+                 prixT.setText(String.valueOf(cat.getPrix()));
+                 typeT.setText(cat.getType());
+                 
+     
+ });
+
+
+
+btnUpdate .setOnAction(e-> {
+ Evenement cat = new Evenement();
+cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
+
+        if (cat== null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alerte");
+            alert.setHeaderText("Alerte");
+            alert.setContentText("Il faut tout d'abord sélectionner un evenement");
+            alert.show();
+        } else { 
+            
+
+                 
+                 
+                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir modifier cet evenement", ButtonType.YES, ButtonType.NO, null);
+                 alert.showAndWait();
+                 Statement statement = null;
+                 ResultSet resultSet = null;
+                
+               Evenement ca= new Evenement();
+     ca.setId(Integer.parseInt(idT.getText()));
+                 ca.setNom(nomT.getText());
+                 ca.setLieu(lieuxT.getText());
+                 ca.setType(typeT.getText());
+                 ca.setNbre_participants(Integer.parseInt(nbreT.getText()));
+                 ca.setPrix(Integer.parseInt(prixT.getText()));
+                     ca.setDateDebut(java.sql.Date.valueOf(dateT.getValue()));
+             ca.setDatefin(java.sql.Date.valueOf(dateFT.getValue()));
+             serviceEvenement.modifier(ca);
+             ChargerEvenement();
+            
+                 
+                 if (alert.getResult() == ButtonType.YES) {
+                     
+                     
+                     
+                     //remove selected item from the table list
+                     serviceEvenement.modifier(ca);
+                     //bonplanService.SupprimerCategorie(cat);
+                    
+                     ChargerEvenement();
+                 }
+             }
+        });
+     
+     
+
+
+
+
+     }   
 
     
      public void ChargerEvenement() {
@@ -210,14 +255,14 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
     }
     
     @FXML
-    private void shop(ActionEvent event) {
-        /*   Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
+    private void shop(ActionEvent event) throws IOException {
+          Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); */
+        stage.show(); 
     
     }
 
@@ -282,50 +327,6 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
     }
     
 
- @FXML
-    private void modifier(ActionEvent event) {
-
-        Evenement maisons_hotes = new Evenement();
-
-        maisons_hotes = tableView.getSelectionModel().getSelectedItem();
-
-        if (maisons_hotes == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Alerte");
-            alert.setHeaderText("Alerte");
-            alert.setContentText("Veillez Choisir une maison d'hôte");
-            alert.show();
-        } else {
-
-            System.out.println(maisons_hotes);
-            /**
-             * ********************
-             */
-            id.setVisible(true);
-            nom.setVisible(true);
-            debut.setVisible(true);
-            nbre.setVisible(true);
-            lieux.setVisible(true);
-            prix.setVisible(true);
-            type.setVisible(true);
-            fin.setVisible(true);
-          
-            /**
-             * ******************
-             */
-            
-       idT.setText(Integer.toString(maisons_hotes.getId()));
-            nomT.setText(maisons_hotes.getNom());
-           // dateT.setDate(maisons_hotes.getDateDebut());
-            nbreT.setText(Integer.toString(maisons_hotes.getNbre_participants()));
-            lieuxT.setText(maisons_hotes.getLieu());
-            prixT.setText(Double.toString(maisons_hotes.getPrix()));
-            typeT.setText(maisons_hotes.getType());
-        //    dateFT.setText(maisons_hotes.getAdresse());
-
-        }
-
-    }
 
 
 
@@ -334,10 +335,10 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
     
     @FXML
     private void AddEvent(ActionEvent event) throws IOException  {
-           if (idT.getText().isEmpty() || nomT.getText().isEmpty() 
+           if (idT.getText().isEmpty() /*|| nomT.getText().isEmpty() 
                 ||  nbreT.getText().isEmpty()
                 || lieuxT.getText().isEmpty() ||  prixT.getText().isEmpty()
-                 || typeT.getText().isEmpty()   ) {          
+                 || typeT.getText().isEmpty()  */ ) {          
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
@@ -356,8 +357,11 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
             Instant instant1 = Instant.from(localDateFin.atStartOfDay(ZoneId.systemDefault()));
             java.util.Date datefin = Date.from(instant1);
             java.sql.Date dtfin = new java.sql.Date(datefin.getTime());
-            Evenement e = new Evenement( Integer.valueOf(idT.getText()),nomT.getText(),dtdebut,Integer.valueOf(nbreT.getText())
-                    , lieuxT.getText(), Double.valueOf(prixT.getText()), typeT.getText(), dtfin);
+             int s = Integer.parseInt(idT.getText());
+              int v = Integer.parseInt(idT.getText());
+              double m = Double.parseDouble(prixT.getText());
+            Evenement e = new Evenement( s,nomT.getText(),dtdebut,v
+                    , lieuxT.getText(), m, typeT.getText(), dtfin);
             serviceEvenement.ajouterEvenement(e);
             
             

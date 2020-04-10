@@ -41,17 +41,18 @@ public class Admin_DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+@FXML
 
-    // private void shop(ActionEvent event) throws IOException {
-   /*Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
+    private void shop(ActionEvent event) throws IOException {
+   Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
         stage.show(); 
-    */
-//    }
+    
+    }
 
 
     @FXML
@@ -77,10 +78,7 @@ public class Admin_DashboardController implements Initializable {
         stage.setScene(scene);
         stage.show(); 
     }
-@FXML
-    private void shop(ActionEvent event) {
-    }
-
+  
     @FXML
     private void users(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Personne.fxml"));

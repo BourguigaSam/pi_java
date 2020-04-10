@@ -29,7 +29,7 @@ public class MainProg extends Application{
     
         public void start(Stage primaryStage) throws Exception {
         
-            Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Event.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/interface_connexion1.fxml"));
         Scene scene = new Scene(root);
         
         primaryStage.setTitle("Accueil HuntKingdom");

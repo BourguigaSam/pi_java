@@ -80,7 +80,18 @@ this.datefin=datefin;
     
 }
 
-   
+   public Evenement(int id,String nom,int nbre_participants,String lieu,double prix,String type){
+this.id=id;
+       this.nom=nom;
+//this.dateDebut=dateDebut;
+this.nbre_participants=nbre_participants;
+this.lieu=lieu;
+this.prix=prix;
+this.type=type;
+//this.datefin=datefin;
+    
+}
+
 
     public int getId() {
         return id;

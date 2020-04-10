@@ -42,6 +42,7 @@ import static org.omg.CORBA.ORB.init;
  * @author LENOVO
  */
 public class Interface_connexion1Controller implements Initializable {
+    public static String hh = "";
 
     @FXML
     private TextField email;
@@ -59,7 +60,6 @@ public class Interface_connexion1Controller implements Initializable {
     private Hyperlink forgot_pass;
     Scene scene;
     
-    
     	private BorderlessScene borderlessScene;
 
     /**
@@ -74,7 +74,11 @@ public class Interface_connexion1Controller implements Initializable {
     @FXML
     private void Connecter(ActionEvent event) throws SQLException, IOException {
               
-          
+
+             String s = email.getText();
+        Interface_connexion1Controller.hh =s;
+
+        
         //ya imin ya isar mahabetch -_- 
            if(ser.getUserByuserName(email.getText()).getRoles().equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}"))
         {
@@ -120,7 +124,7 @@ public class Interface_connexion1Controller implements Initializable {
                 Node node =(Node)event.getSource();
                 stage = (Stage)node.getScene().getWindow();
                 stage.close();
-                Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Interface_Accueil2.fxml"));   
+                Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Chat.fxml"));   
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
@@ -240,13 +244,16 @@ public class Interface_connexion1Controller implements Initializable {
 
 		
 	}
+        @FXML
         private void sendmail(ActionEvent event) throws IOException {
         Node node =(Node)event.getSource();
         stage = (Stage)node.getScene().getWindow();
         stage.close();
-        scene = new Scene(FXMLLoader.load(getClass().getResource("/com/esprit/GUI/forgotPass.fxml")));
+        scene = new Scene(FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Forgot_pass.fxml")));
         stage.setScene(scene);
         stage.show();
     }
+
+    
     
 }

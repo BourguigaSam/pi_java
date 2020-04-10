@@ -19,7 +19,7 @@
          <children>
             <ImageView fitHeight="281.0" fitWidth="316.0" layoutX="14.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../oussama/2-1/logo.png" />
+                  <Image url="@../../../image/logo.png" />
                </image>
             </ImageView>
          </children></Pane>
@@ -48,7 +48,7 @@
                      </font>
                   </PasswordField>
                   <CheckBox fx:id="remember" layoutX="120.0" layoutY="324.0" mnemonicParsing="false" text="Remember me " textFill="#1a2ca1" />
-                  <Hyperlink fx:id="forgot_pass" layoutX="56.0" layoutY="278.0" text="Forgot Password?" />
+                  <Hyperlink fx:id="forgot_pass" layoutX="56.0" layoutY="278.0" onAction="#sendmail" text="Forgot Password?" />
                   <Button layoutX="36.0" layoutY="361.0" mnemonicParsing="false" onAction="#Register" prefHeight="44.0" prefWidth="276.0" style="-fx-background-color: #cce6ff;" text="Don't have an account? Sign up" textFill="#3399ff" />
                </children>
             </Pane>

@@ -74,7 +74,7 @@ public void ajouterEvenement(Evenement e) {
             pst.setDouble(5, e.getPrix());
             pst.setString(6, e.getType());
             pst.setDate(7, e.getDatefin());
-      
+        pst.setInt(8,e.getId());
 
 
             pst.executeUpdate();

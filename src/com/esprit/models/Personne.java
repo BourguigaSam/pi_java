@@ -6,6 +6,7 @@
 package com.esprit.models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -26,6 +27,44 @@ public class Personne {
     private Date password_requested_at;
     private String roles ;
     private String image_id;
+   
+    private String login_rec;
+    private String mess;
+    private Timestamp curdate;
+
+    
+     public Personne(int id, String username, String login_rec, String mess, Timestamp curdate) {
+        this.id = id;
+         this.username = username;
+        this.curdate = curdate;
+        this.mess = mess;
+        this.login_rec = login_rec;
+    }
+
+    
+    public Timestamp getCurdate() {
+        return curdate;
+    }
+
+    public void setCurdate(Timestamp curdate) {
+        this.curdate = curdate;
+    }
+
+    public String getMess() {
+        return mess;
+    }
+
+    public void setMess(String mess) {
+        this.mess = mess;
+    }
+
+    public String getLogin_rec() {
+        return login_rec;
+    }
+
+    public void setLogin_rec(String login_rec) {
+        this.login_rec = login_rec;
+    }
 
     
     
@@ -77,6 +116,7 @@ public class Personne {
         public Personne(){
     }
 
+   
     
     
     public int getId() {

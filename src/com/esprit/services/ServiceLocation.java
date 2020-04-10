@@ -56,18 +56,20 @@ public class ServiceLocation {
         }
     }
 
-        public void modifier(Location location) {
+         public void modifier(Location loc) {
         try {
-            String requete = "UPDATE location SET id=?,marque=?,model=?,category=?,puissance=?,dailyPrice=?,type=?,image_id=? WHERE matricule=?";
+            String requete = "UPDATE `location` SET `matricule`=?,`marque`=?,`model`=?,`category`=?,`puissance`=?,`daily_price`=?,`type`=?,`image_id`=? WHERE `id`=?";
             PreparedStatement pst = cnx.prepareStatement(requete);
-            pst.setInt(1, location.getId());
-            pst.setString(2, location.getMarque());
-            pst.setString(3, location.getModel());
-            pst.setString(4, location.getCategory());
-            pst.setString(5, location.getPuissance());
-            pst.setDouble(6, location.getDailyPrice());
-             pst.setString(7, location.getType());
-              pst.setString(8, location.getImage_id());
+            
+              pst.setString(1,loc.getMatricule());
+            pst.setString(2, loc.getMarque());
+            pst.setString(3, loc.getModel());
+            pst.setString(4, loc.getCategory());
+            pst.setString(5, loc.getPuissance());
+            pst.setDouble(6, loc.getDailyPrice());
+             pst.setString(7, loc.getType());
+              pst.setString(8, loc.getImage_id());
+              pst.setInt(9,loc.getId());
             pst.executeUpdate();
             System.out.println("Location modifiée !");
 
@@ -75,6 +77,7 @@ public class ServiceLocation {
             System.err.println(ex.getMessage());
         }
     }
+
 
      
         

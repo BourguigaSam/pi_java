@@ -59,18 +59,14 @@ public class ServiceBlog {
 
     public void modifierBlog(Blog b) {
         try {
-            String requete = "UPDATE blog SET nom=?,prenom=? WHERE id=?";
+            String requete = "UPDATE blog SET title=?,image=?,content=? WHERE id=?";
             PreparedStatement pst = cnx.prepareStatement(requete);
-            pst.setInt(1, b.getId());
-            pst.setString(2, b.getTitle());
-            pst.setString(3, b.getContent());
-            pst.setString(4, b.getImage());
-            pst.setInt(5, b.getRepliesnumber());
-            pst.setInt(6, b.getLikesnumber());
-            pst.setDate(7, b.getDateCreation());
-            pst.setInt(8, b.getIdauthor());
-            pst.setInt(9, b.getCategorie());
-            pst.setInt(10, b.getAccept());
+            pst.setString(1,b.getTitle());
+            pst.setString(2,b.getImage());
+            pst.setString(3,b.getContent());
+            pst.setInt(4,b.getId());
+            
+       
             pst.executeUpdate();
             System.out.println("Blog modifiée !");
 

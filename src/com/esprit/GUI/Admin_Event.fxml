@@ -165,7 +165,7 @@
                      <children>
                         <HBox prefHeight="72.0" prefWidth="344.0">
                            <children>
-                              <Button fx:id="btnUpdate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modifier" prefHeight="51.0" prefWidth="278.0" style="-fx-background-color: #00A2D3;" text="Update Event" textFill="WHITE">
+                              <Button fx:id="btnUpdate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="51.0" prefWidth="278.0" style="-fx-background-color: #00A2D3;" text="Update Event" textFill="WHITE">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>

@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -134,6 +136,18 @@ cat = (Blog) tableView.getSelectionModel().getSelectedItem();
             }
         }
         });
+       tableView.setOnMouseClicked(e->{
+      Blog bl = new Blog();
+bl = (Blog) tableView.getSelectionModel().getSelectedItem();
+id.setText(String.valueOf(bl.getId()));
+                 imageT.setText(bl.getImage());
+                 contentT.setText(bl.getContent());
+                 titleT.setText(bl.getTitle());
+                 
+                 
+     
+ });
+       
 
       
       
@@ -176,6 +190,51 @@ cat = (Blog) tableView.getSelectionModel().getSelectedItem();
             };
             
         });
+      btnUpdate .setOnAction(e-> {
+ Blog cat = new Blog();
+cat = (Blog) tableView.getSelectionModel().getSelectedItem();
+
+        if (cat== null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alerte");
+            alert.setHeaderText("Alerte");
+            alert.setContentText("Il faut tout d'abord sélectionner un blog");
+            alert.show();
+        } else { 
+            
+
+                 
+                 
+                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir modifier cet evenement", ButtonType.YES, ButtonType.NO, null);
+                 alert.showAndWait();
+                 Statement statement = null;
+                 ResultSet resultSet = null;
+                
+               Blog ca= new Blog();
+     ca.setId(Integer.parseInt(id.getText()));
+                 ca.setContent(contentT.getText());
+                 ca.setImage(imageT.getText());
+                 ca.setTitle(titleT.getText());
+                 
+            
+            
+                 
+                 if (alert.getResult() == ButtonType.YES) {
+                     
+                     
+                     
+                     //remove selected item from the table list
+                                  serviceBlog.modifierBlog(ca);
+
+                     //bonplanService.SupprimerCategorie(cat);
+                    
+                     ChargerBlog();
+                 }
+             }
+        });
+     
+     
+ 
         
     
  
@@ -197,6 +256,9 @@ cat = (Blog) tableView.getSelectionModel().getSelectedItem();
 
         ObservableList observableList = FXCollections.observableArrayList(listeBlog);
         tableView.setItems(observableList);
+titleT.setText("");
+imageT.setText("");
+contentT.setText("");
 
     }
     @FXML

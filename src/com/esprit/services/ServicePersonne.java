@@ -147,6 +147,87 @@ public class ServicePersonne implements IService<Personne> {
         
         return users;
     }
+     
+     
+     public int getVerif(String username) {
+        //String pass = null;
+        int pass = 0;
+        try {
+            String sql = "select * from fos_user where username='" + username + "';";
+
+            Statement ste = (Statement) cnx.createStatement();
+            ResultSet rs = ste.executeQuery(sql);
+
+            if (rs.next()) {
+                pass = rs.getInt("id");
+
+            } else {
+                pass = 0;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return pass;
+
+    }
+     
+     public List<Personne> displayMessage() {
+     //   String r = "Association";
+        List<Personne> myList = new ArrayList<>();
+
+        try {
+            String requete = "select distinct login_envoi from message_asso_famille ";
+            Statement st = (Statement) cnx.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+
+            while (rs.next()) {
+                Personne p = new Personne();
+                // p.setId_p(rs.getInt("id_p"));
+                p.setUsername(rs.getString("login_envoi"));
+//                p.setPrenom_ff(rs.getString("prenom_db"));
+//                p.setEmail_ff(rs.getString("email_db"));
+//                p.setAdd_ff(rs.getString("add_db"));
+
+                myList.add(p);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return myList;
+
+    }
+     
+     
+     
+     
+     
+     
+     public void ajouterFamille_mess(Personne fa) {
+        String requete = "INSERT INTO message_asso_famille (id_message, login_envoi,login_recep,message,date  ) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            pst.setInt(1, fa.getId());
+
+            pst.setString(2, fa.getUsername());
+            pst.setString(3, fa.getLogin_rec());
+
+            pst.setString(4, fa.getMess());
+
+            pst.setTimestamp(5, fa.getCurdate());
+          //  pst.setString(6, fa.getRoles());
+           // pst.setInt(7, fa.getId_recep());
+
+            pst.executeUpdate();
+            System.out.println("Ajout Complete");
+        } catch (SQLException ex) {
+            System.out.println("erreur d'insertion");
+            System.out.println(ex.getMessage());
+
+        }
+    }
+
+     
 
      
     
