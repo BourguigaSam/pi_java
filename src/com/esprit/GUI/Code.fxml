@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="522.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.CodeController">
+   <children>
+      <AnchorPane layoutX="497.0" prefHeight="523.0" prefWidth="380.0" style="-fx-background-color: #CCC6CE;">
+         <children>
+            <TextField fx:id="mailid" layoutX="69.0" layoutY="328.0" prefHeight="26.0" prefWidth="235.0" />
+            <Button fx:id="btnid" layoutX="139.0" layoutY="371.0" mnemonicParsing="false" onAction="#SendMail" prefHeight="26.0" prefWidth="101.0" text="Envoyer" />
+            <Label layoutX="42.0" layoutY="47.0" prefHeight="26.0" prefWidth="235.0" text="*Nous avons envoyer un email.">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="87.0" prefHeight="26.0" prefWidth="290.0" text="*Verifiez votre email et copier le code ">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="147.0" prefHeight="26.0" prefWidth="235.0" text="*Ne pas partager pas ce code ">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="remarque" layoutX="46.0" layoutY="415.0" prefHeight="18.0" prefWidth="171.0" textFill="RED" />
+            <Label layoutX="359.0" onMouseClicked="#exit" text="X">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="45.0" layoutY="113.0" prefHeight="26.0" prefWidth="290.0" text="ici">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="186.0" prefHeight="26.0" prefWidth="328.0" text="*Dés que vous envoyer le code, un message">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="221.0" prefHeight="26.0" prefWidth="290.0" text="contenant votre mot de passe  sera">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="45.0" layoutY="262.0" prefHeight="26.0" prefWidth="290.0" text="envoyer a votre email">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <MediaView fx:id="mv" fitHeight="520.0" fitWidth="490.0" layoutX="7.0" layoutY="3.0" />
+      <AnchorPane prefHeight="28.0" prefWidth="92.0">
+         <children>
+            <Circle fx:id="btnClose" fill="#f22a07" layoutX="7.0" layoutY="10.0" onMouseClicked="#handleMouseEvenet" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="#1fff42" layoutX="55.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="#ffcd21" layoutX="31.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

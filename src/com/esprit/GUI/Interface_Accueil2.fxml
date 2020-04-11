@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane id="AnchorPane" prefHeight="599.0" prefWidth="831.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.Interface_Accueil2Controller">
+   <children>
+      <Pane prefHeight="599.0" prefWidth="87.0" styleClass="sidebar" AnchorPane.leftAnchor="0.0">
+         <children>
+            <Circle fill="DODGERBLUE" layoutX="44.0" layoutY="568.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <AnchorPane layoutX="7.0" prefHeight="28.0" prefWidth="92.0">
+               <children>
+                  <Circle fx:id="btnClose" fill="#f22a07" layoutX="7.0" layoutY="10.0" onMouseClicked="#handleMouseEvenet" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#1fff42" layoutX="55.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#ffcd21" layoutX="31.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+      <Pane layoutX="87.0" prefHeight="66.0" prefWidth="729.0" styleClass="parent" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <FontAwesomeIcon iconName="GEAR" layoutX="664.0" layoutY="36.0" size="1.3em" styleClass="fontawesomeicon" />
+            <FontAwesomeIcon iconName="SIGN_OUT" layoutX="699.0" layoutY="40.0" size="2em" styleClass="fontawesomeicon" />
+         </children>
+      </Pane>
+      <Label fx:id="variable" layoutX="427.0" layoutY="581.0" text="lab" visible="false" />
+      <ImageView fitHeight="140.0" fitWidth="150.0" layoutX="186.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/blog.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="142.0" fitWidth="131.0" layoutX="549.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/shop.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="131.0" fitWidth="131.0" layoutX="205.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/calendar.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="170.0" layoutX="549.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/rent.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="186.0" layoutY="84.0" prefHeight="18.0" prefWidth="140.0" text="Blog" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="545.0" layoutY="93.0" prefHeight="18.0" prefWidth="140.0" text="Blog" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="196.0" layoutY="323.0" prefHeight="18.0" prefWidth="140.0" text="Blog" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="545.0" layoutY="323.0" prefHeight="18.0" prefWidth="140.0" text="Blog" />
+   </children>
+</AnchorPane>

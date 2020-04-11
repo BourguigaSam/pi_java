@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="599.0" prefWidth="831.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.ChatController">
+   <children>
+      <Pane prefHeight="599.0" prefWidth="87.0" styleClass="sidebar" AnchorPane.leftAnchor="0.0">
+         <children>
+            <FontAwesomeIcon iconName="HOME" layoutX="22.0" layoutY="136.0" size="3em" styleClass="fontawesomeicon" />
+            <FontAwesomeIcon iconName="BAR_CHART" layoutX="22.0" layoutY="264.0" size="3em" styleClass="fontawesomeicon" />
+            <FontAwesomeIcon iconName="GEAR" layoutX="22.0" layoutY="333.0" size="3em" styleClass="fontawesomeicon" />
+            <FontAwesomeIcon iconName="INBOX" layoutX="22.0" layoutY="202.0" size="3em" styleClass="fontawesomeicon" />
+            <FontAwesomeIcon iconName="GEARS" layoutX="22.0" layoutY="402.0" size="3em" styleClass="fontawesomeicon" />
+            <Circle fill="DODGERBLUE" layoutX="42.0" layoutY="562.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
+            <FontAwesomeIcon iconName="SIGN_OUT" layoutX="31.0" layoutY="504.0" size="2em" styleClass="fontawesomeicon" />
+            <ImageView fitHeight="88.0" fitWidth="75.0" layoutX="1.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/logo.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="7.0" prefHeight="28.0" prefWidth="92.0">
+               <children>
+                  <Circle fx:id="btnClose" fill="#f22a07" layoutX="7.0" layoutY="10.0" onMouseClicked="#handleMouseEvenet" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#1fff42" layoutX="55.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#ffcd21" layoutX="31.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+      <Pane layoutX="87.0" prefHeight="66.0" prefWidth="729.0" styleClass="parent" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <FontAwesomeIcon iconName="QUESTION_CIRCLE" layoutX="672.0" layoutY="37.0" size="1.3em" styleClass="fontawesomeicon" />
+            <FontAwesomeIcon iconName="GEAR" layoutX="640.0" layoutY="37.0" size="1.3em" styleClass="fontawesomeicon" />
+            <FontAwesomeIcon iconName="ARROW_RIGHT" layoutX="64.0" layoutY="45.0" size="2em" styleClass="fontawesomeicon" />
+            <Label layoutX="100.0" layoutY="28.0" prefHeight="17.0" prefWidth="98.0" text="Messagerie">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <FontAwesomeIcon iconName="INBOX" layoutX="23.0" layoutY="48.0" size="3em" styleClass="fontawesomeicon" />
+         </children>
+      </Pane>
+      <ListView fx:id="list" layoutX="391.0" layoutY="95.0" prefHeight="391.0" prefWidth="423.0" />
+      <TableView fx:id="tabview" layoutX="149.0" layoutY="95.0" prefHeight="391.0" prefWidth="226.0">
+         <columns>
+            <TableColumn fx:id="colview" prefWidth="225.0" text="Liste des contacts" />
+         </columns>
+      </TableView>
+      <TextField fx:id="mess_txt" layoutX="392.0" layoutY="515.0" prefHeight="44.0" prefWidth="338.0" />
+      <Button fx:id="env" layoutX="742.0" layoutY="515.0" mnemonicParsing="false" onAction="#env_btn" prefHeight="44.0" prefWidth="73.0" style="-fx-background-color: #48A5EA;" text="envoi" />
+      <Label fx:id="variable" layoutX="427.0" layoutY="581.0" text="lab" visible="false" />
+   </children>
+</AnchorPane>
