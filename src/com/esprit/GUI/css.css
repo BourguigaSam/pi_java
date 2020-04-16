@@ -1,0 +1,10 @@
+.parent{
+        -fx-background-color:#F5F5F7;
+}
+
+.sidebar{
+    -fx-background-color:#2D3039;
+} 
+.fontawesomeicon{
+    -fx-fill:grey;
+}
