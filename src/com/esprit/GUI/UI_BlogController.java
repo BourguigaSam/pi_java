@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
@@ -37,9 +38,10 @@ import javafx.stage.Stage;
  * @author LENOVO
  */
 public class UI_BlogController implements Initializable {
-      @FXML
+
+    @FXML
     private Circle btnClose;
- @FXML
+    @FXML
     private Button next;
     @FXML
     private ImageView image;
@@ -48,138 +50,154 @@ public class UI_BlogController implements Initializable {
     @FXML
     private Label text;
     private Connection con = DataSource.getInstance().getCnx();
- ResultSet rs;
- @FXML
+    ResultSet rs;
+    @FXML
     private ImageView image1;
     @FXML
     private Label title1;
     @FXML
     private Label text1;
-   
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     try {
-         rs = con.createStatement().executeQuery("select * from blog ");
+        try {
+            rs = con.createStatement().executeQuery("select * from blog ");
             afficherListe();
         } catch (SQLException ex) {
-           // System.out.println("dddd");
+            // System.out.println("dddd");
             Logger.getLogger(UI_eventController.class.getName()).log(Level.SEVERE, null, ex);
-        }      
+        }
     }
-  
-    
-      
-    
-    public void afficherListe() throws SQLException{
+
+    public void afficherListe() throws SQLException {
         rs.first();
+        Image imagex = new Image("image/" + rs.getString("image"));
+        System.out.println("image/" + rs.getString("image"));
+        image.setImage(imagex);
         title.setText(rs.getString("title"));
-         text.setText(rs.getString("content"));
-           rs.next();
-title1.setText(rs.getString("title"));
-         text1.setText(rs.getString("content"));
-        
-    }
-    
-    @FXML
-     public void afficherListe1() throws SQLException{
+        text.setText(rs.getString("content"));
         rs.next();
+        Image imagex2 = new Image("image/" + rs.getString("image"));
+        System.out.println("image/" + rs.getString("image"));
+        image1.setImage(imagex2);
+        title1.setText(rs.getString("title"));
+        text1.setText(rs.getString("content"));
+
+    }
+
+    @FXML
+    public void afficherListe1() throws SQLException {
+        rs.next();
+        Image imagex = new Image("image/" + rs.getString("image"));
+        System.out.println("image/" + rs.getString("image"));
+        image.setImage(imagex);
         title.setText(rs.getString("title"));
-         text.setText(rs.getString("content"));
-       rs.next();
-title1.setText(rs.getString("title"));
-         text1.setText(rs.getString("content"));
-        
-     }
-      @FXML
-    private void handleMouseEvenet(MouseEvent event){
-        if (event.getSource() == btnClose){
+        text.setText(rs.getString("content"));
+        rs.next();
+        Image imagex2 = new Image("image/" + rs.getString("image"));
+        System.out.println("image/" + rs.getString("image"));
+        image1.setImage(imagex2);
+        title1.setText(rs.getString("title"));
+        text1.setText(rs.getString("content"));
+
+    }
+
+    @FXML
+    private void handleMouseEvenet(MouseEvent event) {
+        if (event.getSource() == btnClose) {
             System.exit(0);
         }
     }
+
     @FXML
     private void backhome(ActionEvent event) throws IOException {
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Interface_Accueil2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Interface_Accueil2.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();     
+        stage.show();
     }
-     @FXML
-    private void mousepressedhome(MouseEvent event) throws IOException{
-        
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Interface_Accueil2.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-        stage.setScene(scene);
-        stage.show();  
-        
-    }
     @FXML
-    private void mousepressedinbox(MouseEvent event) throws IOException{
-        
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Chat.fxml"));
+    private void mousepressedhome(MouseEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Interface_Accueil2.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();  
-        
+        stage.show();
+
     }
+
     @FXML
-     private void mousepressedstore(MouseEvent event) throws IOException{
-        // change it to store interface
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Chat.fxml"));
+    private void mousepressedinbox(MouseEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Chat.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();  
-        
+        stage.show();
+
     }
- 
-     @FXML
-     private void mousepressedsevent(MouseEvent event) throws IOException{
+
+    @FXML
+    private void mousepressedstore(MouseEvent event) throws IOException {
         // change it to store interface
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/UI_event.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Chat.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();  
-        
+        stage.show();
+
     }
-     @FXML
-     private void mousepressedrent(MouseEvent event) throws IOException{
+
+    @FXML
+    private void mousepressedsevent(MouseEvent event) throws IOException {
         // change it to store interface
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/UI_Location.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/UI_event.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();  
-        
+        stage.show();
+
     }
-     @FXML
-     private void mousepressedblog(MouseEvent event) throws IOException{
+
+    @FXML
+    private void mousepressedrent(MouseEvent event) throws IOException {
         // change it to store interface
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/UI_Blog.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/UI_Location.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();  
-        
+        stage.show();
+
+    }
+
+    @FXML
+    private void mousepressedblog(MouseEvent event) throws IOException {
+        // change it to store interface
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/UI_Blog.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.show();
+
     }
 }

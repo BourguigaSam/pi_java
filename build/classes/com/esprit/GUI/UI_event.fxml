@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="780.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.UI_eventController">
+   <children>
+      <Pane layoutX="75.0" prefHeight="65.0" prefWidth="705.0" style="-fx-background-color: #e6e6e6;" styleClass="parent" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <FontAwesomeIcon iconName="HOME" layoutX="23.0" layoutY="46.0" size="3em" styleClass="fontawesomeicon" />
+            <FontAwesomeIcon iconName="ARROW_RIGHT" layoutX="64.0" layoutY="45.0" size="2em" styleClass="fontawesomeicon" />
+            <Label layoutX="100.0" layoutY="28.0" prefHeight="17.0" prefWidth="75.0" text="Evenement">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="anchorpane" layoutX="98.0" layoutY="66.0" prefHeight="222.0" prefWidth="186.0">
+         <children>
+            <Pane nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: white;">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" color="#797979" />
+               </effect>
+               <children>
+                  <Label fx:id="nom" layoutX="206.0" layoutY="18.0" text="nom" textFill="#bcbcbc">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="13.0" layoutY="133.0" text="date :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="155.0" text="lieu :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="182.0" text="prix :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="date" layoutX="100.0" layoutY="133.0" text="Label" />
+            <Label fx:id="lieu" layoutX="100.0" layoutY="155.0" text="Label" />
+            <Label fx:id="prix" layoutX="100.0" layoutY="182.0" text="Label" />
+            <Button fx:id="participer" layoutX="176.0" layoutY="160.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="participer" />
+            <Button fx:id="partAnul" layoutX="130.0" layoutY="195.0" mnemonicParsing="false" style="-fx-background-color: #ff6666;" text="Annuler participer" />
+            <ImageView fx:id="image11" fitHeight="58.0" fitWidth="75.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorpane1" layoutX="441.0" layoutY="66.0" prefHeight="222.0" prefWidth="186.0">
+         <children>
+            <Pane layoutX="3.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: white;">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" color="#797979" />
+               </effect>
+               <children>
+                  <Label fx:id="nom1" layoutX="206.0" layoutY="18.0" text="nom" textFill="#bcbcbc">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="13.0" layoutY="133.0" text="date :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="155.0" text="lieu :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="182.0" text="prix :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="date1" layoutX="100.0" layoutY="133.0" text="Label" />
+            <Label fx:id="lieu1" layoutX="100.0" layoutY="155.0" text="Label" />
+            <Label fx:id="prix1" layoutX="100.0" layoutY="182.0" text="Label" />
+            <Button fx:id="participer1" layoutX="174.0" layoutY="160.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="participer" />
+            <Button fx:id="partAnul1" layoutX="131.0" layoutY="195.0" mnemonicParsing="false" style="-fx-background-color: #ff6666;" text="Annuler participer" />
+            <ImageView fx:id="image1" fitHeight="58.0" fitWidth="75.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorpane2" layoutX="98.0" layoutY="306.0" prefHeight="222.0" prefWidth="186.0">
+         <children>
+            <Pane nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: white;">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" color="#797979" />
+               </effect>
+               <children>
+                  <Label fx:id="nom2" layoutX="206.0" layoutY="18.0" text="nom" textFill="#bcbcbc">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="13.0" layoutY="133.0" text="date :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="155.0" text="lieu :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="182.0" text="prix :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="date2" layoutX="100.0" layoutY="133.0" text="Label" />
+            <Label fx:id="lieu2" layoutX="100.0" layoutY="155.0" text="Label" />
+            <Label fx:id="prix2" layoutX="100.0" layoutY="182.0" text="Label" />
+            <Button fx:id="participer2" layoutX="179.0" layoutY="153.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="participer" />
+            <Button fx:id="partAnul2" layoutX="138.0" layoutY="191.0" mnemonicParsing="false" style="-fx-background-color: #ff6666;" text="Annuler participer" />
+            <ImageView fx:id="image12" fitHeight="58.0" fitWidth="75.0" layoutX="-2.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorpane21" layoutX="441.0" layoutY="306.0" prefHeight="222.0" prefWidth="186.0">
+         <children>
+            <Pane nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: white;">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" color="#797979" />
+               </effect>
+               <children>
+                  <Label fx:id="nom21" layoutX="206.0" layoutY="18.0" text="nom" textFill="#bcbcbc">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="13.0" layoutY="133.0" text="date :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="155.0" text="lieu :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="182.0" text="prix :">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="date21" layoutX="100.0" layoutY="133.0" text="Label" />
+            <Label fx:id="lieu21" layoutX="100.0" layoutY="155.0" text="Label" />
+            <Label fx:id="prix21" layoutX="100.0" layoutY="182.0" text="Label" />
+            <Button fx:id="participer21" layoutX="180.0" layoutY="160.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="participer" />
+            <Button fx:id="partAnul21" layoutX="134.0" layoutY="195.0" mnemonicParsing="false" style="-fx-background-color: #ff6666;" text="Annuler participer" />
+            <ImageView fx:id="image13" fitHeight="58.0" fitWidth="75.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Pane prefHeight="580.0" prefWidth="75.0" styleClass="sidebar">
+         <children>
+            <ImageView fx:id="MyParticipation" fitHeight="44.0" fitWidth="39.0" layoutX="18.0" layoutY="189.0" onMouseClicked="#mousepressedstore" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/online-shop.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="44.0" fitWidth="39.0" layoutX="18.0" layoutY="344.0" onMouseClicked="#mousepressedsevent" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/easter-eggs.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="44.0" fitWidth="39.0" layoutX="20.0" layoutY="51.0" onMouseClicked="#mousepressedhome" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/home-run.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="44.0" fitWidth="39.0" layoutX="20.0" layoutY="127.0" onMouseClicked="#mousepressedinbox" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/10484843201553771552-512.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="44.0" fitWidth="39.0" layoutX="20.0" layoutY="416.0" onMouseClicked="#mousepressedblog" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/content.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="44.0" fitWidth="39.0" layoutX="18.0" layoutY="271.0" onMouseClicked="#mousepressedrent" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/car.png" />
+               </image>
+            </ImageView>
+            <AnchorPane prefHeight="28.0" prefWidth="92.0">
+               <children>
+                  <Circle fx:id="btnClose" fill="#f22a07" layoutX="7.0" layoutY="10.0" onMouseClicked="#handleMouseEvenet" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#1fff42" layoutX="55.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#ffcd21" layoutX="31.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="44.0" fitWidth="39.0" layoutX="18.0" layoutY="502.0" onMouseClicked="#myevents" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/calendar.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="24.0" layoutY="473.0" text="My Events" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Button fx:id="next" layoutX="696.0" layoutY="528.0" mnemonicParsing="false" onAction="#afficherliste1" prefHeight="36.0" prefWidth="54.0" style="-fx-background-color: #48A5EA;" text="next" />
+      <Button layoutX="98.0" layoutY="532.0" mnemonicParsing="false" onAction="#backhome" prefHeight="26.0" prefWidth="60.0" style="-fx-background-color: #c2d6d6;" text="Back" />
+   </children>
+</AnchorPane>

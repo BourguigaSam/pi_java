@@ -18,7 +18,7 @@ public class DataSource {
     private static DataSource instance;
     private Connection cnx;
 
-    private final String URL = "jdbc:mysql://127.0.0.1:3306/hunt?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" ;
+    private final String URL = "jdbc:mysql://127.0.0.1:3306/huntkingdom?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" ;
     private final String LOGIN = "root";
     private final String PASSWORD = "";
 

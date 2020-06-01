@@ -7,6 +7,7 @@ package com.esprit.GUI;
 
 import com.esprit.models.Blog;
 import com.esprit.services.ServiceBlog;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -23,6 +25,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,10 +41,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import javax.imageio.ImageIO;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -83,12 +92,12 @@ public class Admin_BlogController implements Initializable {
     @FXML
     private TextField contentT;
     @FXML
-    private Button btnAdd;
-     @FXML
     private Circle btnClose;
+    @FXML
+    private ImageView imagexw;
 
-ServiceBlog serviceBlog = new ServiceBlog();
-  private File file;
+    ServiceBlog serviceBlog = new ServiceBlog();
+    private File file;
     private FileInputStream fis;
 
     /**
@@ -97,202 +106,163 @@ ServiceBlog serviceBlog = new ServiceBlog();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-            ChargerBlog();
+        ChargerBlog();
 
-   ServiceBlog ser = new ServiceBlog();
+        ServiceBlog ser = new ServiceBlog();
         ArrayList<Blog> liste = (ArrayList<Blog>) ser.afficherBlog();
         ObservableList observableList = FXCollections.observableArrayList(liste);
-       tableView.setItems(observableList);     // search.setVisible(false);
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableView.setItems(observableList);
+
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
-         content.setCellValueFactory(new PropertyValueFactory<>("content"));
+        content.setCellValueFactory(new PropertyValueFactory<>("content"));
         nbre.setCellValueFactory(new PropertyValueFactory<>("repliesnumber"));
         likes.setCellValueFactory(new PropertyValueFactory<>("categorie"));
         date.setCellValueFactory(new PropertyValueFactory<>("dateCreation"));
         categoory.setCellValueFactory(new PropertyValueFactory<>("dailyPrice"));
-       accept.setCellValueFactory(new PropertyValueFactory<>("accept"));
-      image.setCellValueFactory(new PropertyValueFactory<>("image"));
+        accept.setCellValueFactory(new PropertyValueFactory<>("accept"));
+        image.setCellValueFactory(new PropertyValueFactory<>("image"));
 
+        btnSupprimer.setOnMouseClicked(x -> {
+            Blog cat = new Blog();
+            cat = (Blog) tableView.getSelectionModel().getSelectedItem();
+            if (cat == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Alerte");
+                alert.setHeaderText("Alerte");
+                alert.setContentText("Il faut tout d'abord sélectionner une location");
+                alert.show();
+            } else {
 
-      btnSupprimer .setOnMouseClicked(x -> {
- Blog cat = new Blog();
-cat = (Blog) tableView.getSelectionModel().getSelectedItem();
-
-        if (cat== null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Alerte");
-            alert.setHeaderText("Alerte");
-            alert.setContentText("Il faut tout d'abord sélectionner une location");
-            alert.show();
-        } else {
-
-            // get Selected Item
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir supprimer cette location?", ButtonType.YES, ButtonType.NO, null);
-            alert.showAndWait();
-
-            if (alert.getResult() == ButtonType.YES) {
-                //remove selected item from the table list
-                serviceBlog.supprimerBlog(cat);
-                //bonplanService.SupprimerCategorie(cat);
-                 tableView.getItems().clear();
-        
-            tableView.getItems().addAll(serviceBlog.afficherBlog());
-            ChargerBlog();
+                // get Selected Item
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir supprimer cette location?", ButtonType.YES, ButtonType.NO, null);
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.YES) {
+                    //remove selected item from the table list
+                    serviceBlog.supprimerBlog(cat);
+                    //bonplanService.SupprimerCategorie(cat);
+                    tableView.getItems().clear();
+                    tableView.getItems().addAll(serviceBlog.afficherBlog());
+                    ChargerBlog();
+                }
             }
+        });
+        tableView.setOnMouseClicked(e -> {
+            Blog bl = new Blog();
+            bl = (Blog) tableView.getSelectionModel().getSelectedItem();
+            imageT.setText(bl.getImage());
+            contentT.setText(bl.getContent());
+            titleT.setText(bl.getTitle());
+
+        });
+
+        Stage stage = new Stage();
+        btnUpdate.setOnAction(e -> {
+            Blog cat = new Blog();
+            cat = (Blog) tableView.getSelectionModel().getSelectedItem();
+            if (cat == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Alerte");
+                alert.setHeaderText("Alerte");
+                alert.setContentText("Il faut tout d'abord sélectionner un blog");
+                alert.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir modifier cet evenement", ButtonType.YES, ButtonType.NO, null);
+                alert.showAndWait();
+                Statement statement = null;
+                ResultSet resultSet = null;
+                Blog ca = new Blog();
+                ca.setId(cat.getId());
+                ca.setContent(contentT.getText());
+
+                ca.setImage(imageT.getText());
+                ca.setTitle(titleT.getText());
+                if (alert.getResult() == ButtonType.YES) {
+                    serviceBlog.modifierBlog(ca);
+                    ChargerBlog();
+                }
+            }
+        });
+    }
+    // random
+    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    public static String randomAlphaNumeric(int count) {
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
         }
-        });
-       tableView.setOnMouseClicked(e->{
-      Blog bl = new Blog();
-bl = (Blog) tableView.getSelectionModel().getSelectedItem();
-id.setText(String.valueOf(bl.getId()));
-                 imageT.setText(bl.getImage());
-                 contentT.setText(bl.getContent());
-                 titleT.setText(bl.getTitle());
-                 
-                 
-     
- });
-       
+        return builder.toString();
+    }
 
-      
-      
-      
-      
-      
-      Stage stage = new Stage();
-        btnAdd.setOnAction(e -> {
-            stage.setTitle("File Chooser ");
-            
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open image File");
-            
-            file = fileChooser.showOpenDialog(stage);
-            if (file != null) {
-                imageT.setText(file.getAbsolutePath());
-                System.out.println(file.getAbsolutePath());
-                imageT.setText("");
-                
-                try {
-                     
-                
-                    
-                    fis = new FileInputStream(file);// file is selected using filechooser which is in last tutorial
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Admin_BlogController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                try {
-                    //     Image image=  new Image(file.toURI().toString());
-                    URL url1 = file.toURI().toURL();
-                    System.out.println(new Image(url1.toExternalForm()));
-                    //image_post.setImage(new Image(url1.toExternalForm()));
-                } catch (MalformedURLException ex) {
-                    
-                    Logger.getLogger(Admin_BlogController.class.getName()).log(Level.SEVERE, null, ex);
-                    
-                }
-                
-            };
-            
-        });
-      btnUpdate .setOnAction(e-> {
- Blog cat = new Blog();
-cat = (Blog) tableView.getSelectionModel().getSelectedItem();
+    public static String saveToFileImageNormal(Image image) throws SQLException, IOException {
 
-        if (cat== null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Alerte");
-            alert.setHeaderText("Alerte");
-            alert.setContentText("Il faut tout d'abord sélectionner un blog");
-            alert.show();
-        } else { 
-            
+        String ext = "jpg";
+        File dir = new File("C:/Users/MisterSpy/Desktop/pi/piz/piz/src/image");
+        String name = String.format("%s.%s", randomAlphaNumeric(10), ext);
+        File outputFile = new File(dir, name);
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        ImageIO.write(bImage, "png", outputFile);
+        return name;
+    }
 
-                 
-                 
-                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir modifier cet evenement", ButtonType.YES, ButtonType.NO, null);
-                 alert.showAndWait();
-                 Statement statement = null;
-                 ResultSet resultSet = null;
-                
-               Blog ca= new Blog();
-     ca.setId(Integer.parseInt(id.getText()));
-                 ca.setContent(contentT.getText());
-                 ca.setImage(imageT.getText());
-                 ca.setTitle(titleT.getText());
-                 
-            
-            
-                 
-                 if (alert.getResult() == ButtonType.YES) {
-                     
-                     
-                     
-                     //remove selected item from the table list
-                                  serviceBlog.modifierBlog(ca);
+    @FXML
+    private void addImage(MouseEvent event) {
+        FileChooser fc = new FileChooser();
 
-                     //bonplanService.SupprimerCategorie(cat);
-                    
-                     ChargerBlog();
-                 }
-             }
-        });
-     
-     
- 
-        
-    
- 
- 
- 
- 
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (.png)", "*.PNG");
+        fc.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File selectedFile = fc.showOpenDialog(null);
+        try {
+            BufferedImage bufferedImage = ImageIO.read(selectedFile);
+            Image imageF = SwingFXUtils.toFXImage(bufferedImage, null);
+            imagexw.setImage(imageF);
+        } catch (IOException ex) {
+            System.out.println("add image");
+        }
+    }
 
- 
- 
-      
-
-    }    
-
-     @FXML
-    private void handleMouseEvenet(MouseEvent event){
-        if (event.getSource() == btnClose){
+    @FXML
+    private void handleMouseEvenet(MouseEvent event) {
+        if (event.getSource() == btnClose) {
             System.exit(0);
         }
     }
+
     public void ChargerBlog() {
-        
+
         ServiceBlog serviceBlog = new ServiceBlog();
         ArrayList<Blog> listeBlog = (ArrayList<Blog>) serviceBlog.afficherBlog();
-
         ObservableList observableList = FXCollections.observableArrayList(listeBlog);
         tableView.setItems(observableList);
-titleT.setText("");
-imageT.setText("");
-contentT.setText("");
+        titleT.setText("");
+        imageT.setText("");
+        contentT.setText("");
 
     }
+
     @FXML
     private void shop(ActionEvent event) throws IOException {
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();     
+        stage.show();
     }
 
     @FXML
     private void event(ActionEvent event) throws IOException {
-          Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Event.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Event.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
+        stage.show();
+
     }
 
     @FXML
@@ -303,7 +273,7 @@ contentT.setText("");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
+        stage.show();
     }
 
     @FXML
@@ -314,29 +284,37 @@ contentT.setText("");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
-}
+        stage.show();
+
+    }
+
     @FXML
     private void location(ActionEvent event) throws IOException {
-          Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Location.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Location.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
+        stage.show();
+
     }
-   
-    
+
+    @FXML
+    private void backhome(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Dashboard.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     private void SearchByName(ActionEvent event) {
-        
-          ServiceBlog bs = new ServiceBlog();
+
+        ServiceBlog bs = new ServiceBlog();
         ArrayList AL = (ArrayList) bs.afficherBlog();
         ObservableList OReservation = FXCollections.observableArrayList(AL);
         FilteredList<Blog> filtred_c = new FilteredList<>(OReservation, e -> true);
@@ -346,10 +324,8 @@ contentT.setText("");
                     if (newValue == null || newValue.isEmpty()) {
                         return true;
                     }
-                  //  String toLowerCaseNewValue = newValue.toLowerCase();
-                    if ((p.getTitle().contains(newValue)) ) {
+                    if ((p.getTitle().contains(newValue))) {
                         return true;
-
                     }
 
                     return false;
@@ -358,39 +334,36 @@ contentT.setText("");
         });
         tableView.setItems(filtred_c);
 
-    
-        
-        
     }
-    
-     @FXML
-    private void AddLocation(ActionEvent event) throws IOException  {
-           if (titleT.getText().isEmpty() || contentT.getText().isEmpty() 
-                ||  imageT.getText().isEmpty()
-                ) {          
+
+    @FXML
+    private void AddLocation(ActionEvent event) throws IOException, SQLException {
+        if (titleT.getText().isEmpty() || contentT.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
             alert.setContentText("Il faut remplir les champs obligatoires ");
             alert.showAndWait();
-        }
-        else
-        {
-                Blog b = new Blog( titleT.getText(),contentT.getText()
-                    , imageT.getText());
+        } else {
+            Image img = imagexw.getImage();
+            String imgFile = saveToFileImageNormal(img);
+            Blog b = new Blog(titleT.getText(), contentT.getText(),
+                    imgFile);
             serviceBlog.ajouterBlog(b);
+            TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.POPUP;
             
             
-             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Nouveau Blog");
-            alert.setHeaderText(null);
-            alert.setContentText("Blog  ajouté !! ");
-            alert.showAndWait();
-        ChargerBlog();
+            tray.setAnimationType(type);
+            tray.setTitle("Success Add Blog");
+            tray.setMessage("Remember Done Better Then Perefect");
+            tray.setNotificationType(NotificationType.SUCCESS);
+            tray.showAndDismiss(Duration.millis(3000));
+            
+
+              
+            ChargerBlog();
+        }
     }
-    }
-    
-    
-    
-    
+
 }

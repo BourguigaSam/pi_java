@@ -73,7 +73,7 @@ public class Interface_registerController implements Initializable {
     @FXML
     private void register(ActionEvent event) throws SQLException, IOException {
         Connection conn = DataSource.getInstance().getCnx(); 
-        String req= "INSERT INTO fos_user (username,email,password,phone,roles) VALUES (?,?,?,?,'a:0:{}')";
+        String req= "INSERT INTO fos_user (username,email ,password,phone,roles) VALUES (?,?,?,?,'a:0:{}')";
         String req1= "SELECT * FROM fos_user WHERE email=?";
         PreparedStatement prs= conn.prepareStatement(req);
         PreparedStatement prs1= conn.prepareStatement(req1);
