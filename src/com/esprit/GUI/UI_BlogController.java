@@ -5,6 +5,7 @@
  */
 package com.esprit.GUI;
 
+import com.esprit.Core.Controller;
 import com.esprit.utils.DataSource;
 import java.io.IOException;
 import java.net.URL;
@@ -74,8 +75,9 @@ public class UI_BlogController implements Initializable {
 
     public void afficherListe() throws SQLException {
         rs.first();
+                    System.out.println(Controller.getUserId());
+
         Image imagex = new Image("image/" + rs.getString("image"));
-        System.out.println("image/" + rs.getString("image"));
         image.setImage(imagex);
         title.setText(rs.getString("title"));
         text.setText(rs.getString("content"));

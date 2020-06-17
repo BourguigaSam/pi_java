@@ -36,8 +36,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.mindrot.jbcrypt.BCrypt;
 import static org.omg.CORBA.ORB.init;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -101,6 +105,18 @@ public class Interface_connexion1Controller implements Initializable {
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
+           // return;
+            
+               TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("Hello  "  + email.getText());
+            tray.setMessage("NICE TO HAVE YOU HERE !!");
+            tray.setNotificationType(NotificationType.CUSTOM);
+            tray.showAndDismiss(Duration.millis(3000));
+        
             return;
         }
        
@@ -112,8 +128,17 @@ public class Interface_connexion1Controller implements Initializable {
         prs.setString(2, email.getText());
         ResultSet rs = prs.executeQuery();
         if (!rs.next()){
-            msg.setText("Username incorrect");
-        } 
+           
+            TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("If U are sure to rent this car ");
+            tray.setMessage("PLEASE VISIT US IN OUR DEPARTMENT");
+            tray.setNotificationType(NotificationType.ERROR);
+            tray.showAndDismiss(Duration.millis(3000));
+            } 
         
         else { 
             if(BCrypt.checkpw(password.getText(),rs.getString("password").substring(0,2)+"a"+rs.getString("password").substring(3)))
@@ -131,7 +156,6 @@ public class Interface_connexion1Controller implements Initializable {
                 Personne user= new Personne();
                 user.setId(x);
                 Controller.setUserId(x);
-              
                  String sql2 = "SELECT * FROM message_asso_famille ";
                             res = prs1.executeQuery(sql2);
                             if (res.next()) {
@@ -154,6 +178,17 @@ public class Interface_connexion1Controller implements Initializable {
                 stage.setScene(scene);
                 stage.show();
                 stage.setResizable(false);          
+                
+                TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("Hello  "  + email.getText());
+            tray.setMessage("NICE TO HAVE YOU HERE !!");
+            tray.setNotificationType(NotificationType.CUSTOM);
+            tray.showAndDismiss(Duration.millis(3000));
+            
 
             }
             else {
@@ -166,7 +201,7 @@ public class Interface_connexion1Controller implements Initializable {
                 prs.setString(1, email.getText());
                 ResultSet res= prs.executeQuery();
                 while (res.next()){
-                    x= res.getInt("id");
+                    x = res.getInt("id");
                 } 
                 Personne user= new Personne();
                 Controller.setUserId(x);
@@ -185,7 +220,17 @@ public class Interface_connexion1Controller implements Initializable {
             }
             else
             {
-                msg.setText("Mot de passe incorrecte!");
+
+ TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("Incorrect Mot de passe ");
+            tray.setMessage("PLEASE CHECK UR MOT DE PASSE");
+            tray.setNotificationType(NotificationType.WARNING);
+            tray.showAndDismiss(Duration.millis(3000));
+
             }
         }   }  
     

@@ -26,13 +26,12 @@ public class ServicePanier {
 
     public void ajouter(Panier pan) {
         try {
-            String requete = "INSERT INTO panier (user,produit_id,quantite,prix,date_p) VALUES (?,?,?,?,?)";
+            String requete = "INSERT INTO panier (user,produit_id,quantite,prix) VALUES (?,?,?,?)";
             PreparedStatement pst = cnx.prepareStatement(requete);
             pst.setObject(1, pan.getPersonne());
             pst.setObject(2, pan.getProduit());
-            pst.setInt(1, pan.getQuantity());
-            pst.setFloat(1, pan.getPrix());
-            pst.setDate(1, pan.getDate_p());
+            pst.setInt(3, pan.getQuantity());
+            pst.setFloat(4, pan.getPrix());
             pst.executeUpdate();
             System.out.println("Panier !");
 

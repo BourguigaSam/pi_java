@@ -24,18 +24,13 @@ public class ServiceProduit {
 
     public void ajouterProduit(Produit produit) {
         try {
-            String requete = "INSERT INTO produit (id,nom,description,prix,quantity,image_id,date) VALUES (?,?,?,?,?,?,?)";
+            String requete = "INSERT INTO produit (nom,description,prix,quantity,image_id) VALUES (?,?,?,?,?)";
             PreparedStatement pst = cnx.prepareStatement(requete);
-            pst.setInt(1, produit.getId());
-            pst.setString(2, produit.getNom());
-            pst.setString(3, produit.getDescription());
-            pst.setDouble(4, produit.getPrix());
-            pst.setInt(5, produit.getQuantity());
-            //  pst.setObject(7, produit.getP());
-            //pst.setInt(7, produit.getCategory());
-            //pst.setInt(8, produit.getRegion());
-            pst.setString(6, produit.getImage());
-            pst.setDate(7, produit.getDate());
+            pst.setString(1, produit.getNom());
+            pst.setString(2, produit.getDescription());
+            pst.setDouble(3, produit.getPrix());
+            pst.setInt(4, produit.getQuantity());
+            pst.setString(5, produit.getImage());
 
             pst.executeUpdate();
             System.out.println("Produit ajoutée !");

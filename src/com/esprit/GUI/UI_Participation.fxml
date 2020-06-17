@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="780.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.UI_ParticipationController">
+<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="780.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.UI_ParticipationController">
    <children>
       <Pane layoutX="75.0" prefHeight="65.0" prefWidth="705.0" styleClass="parent" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -81,5 +81,6 @@
             </AnchorPane>
          </children>
       </Pane>
+      <Button layoutX="669.0" layoutY="445.0" mnemonicParsing="false" onAction="#GeneratePdf" prefHeight="36.0" prefWidth="67.0" style="-fx-background-color: red;" text="PDF" textFill="WHITE" />
    </children>
 </AnchorPane>

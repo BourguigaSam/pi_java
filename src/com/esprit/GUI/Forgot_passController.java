@@ -76,7 +76,7 @@ public class Forgot_passController implements Initializable {
     private Label exit;
 
         public static final String ACCOUNT_SID = "ACc98bb8185a79cdc4f764686910fad80c";
-    public static final String AUTH_TOKEN = "d7f4a4837830f879a62fb17027b0df3f";
+    public static final String AUTH_TOKEN = "1dd8dcb6bcaa2644e88d120c3f0b68bd";
 
     /**
      * Initializes the controller class.

@@ -9,13 +9,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="1025.0" styleClass="parent" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.Admin_EventController">
+<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="1025.0" styleClass="parent" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.Admin_EventController">
    <children>
       <VBox prefHeight="600.0" prefWidth="300.0" styleClass="sidebar">
          <children>
@@ -150,7 +151,6 @@
                   </HBox>
                   <TableView fx:id="tableView" prefHeight="215.0" prefWidth="727.0">
                     <columns>
-                      <TableColumn fx:id="id" prefWidth="44.0" text="id" />
                       <TableColumn fx:id="nom" prefWidth="74.0" text="nom" />
                         <TableColumn fx:id="debut" prefWidth="87.0" text="date debut" />
                         <TableColumn fx:id="nbre" prefWidth="141.0" text="nbre de participants" />
@@ -189,7 +189,6 @@
                <children>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="728.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="idT" opacity="0.72" prefHeight="25.0" prefWidth="38.0" promptText="id" />
                         <TextField fx:id="nomT" opacity="0.72" prefHeight="25.0" prefWidth="82.0" promptText="nom" />
                         <DatePicker fx:id="dateT" prefHeight="25.0" prefWidth="104.0" promptText="date debut" />
                         <TextField fx:id="nbreT" opacity="0.72" prefHeight="25.0" prefWidth="128.0" promptText="nbre de participants" />
@@ -197,6 +196,13 @@
                         <TextField fx:id="prixT" opacity="0.72" prefHeight="25.0" prefWidth="92.0" promptText="prix" />
                         <TextField fx:id="typeT" opacity="0.72" prefHeight="25.0" prefWidth="65.0" promptText="type" />
                         <DatePicker fx:id="dateFT" prefHeight="25.0" prefWidth="127.0" promptText="date fin" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="728.0">
+                     <children>
+                        <TextField fx:id="imageT" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="222.0" promptText="image" />
+                        <Button fx:id="btn_image" mnemonicParsing="false" text="Add Image" />
+                        <ImageView fx:id="imagexw" fitHeight="35.0" fitWidth="84.0" onMouseClicked="#addImage" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
                   <Button fx:id="btnAdd1" mnemonicParsing="false" onAction="#AddEvent" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #00A2D3;" text="Add Event" textFill="WHITE" />

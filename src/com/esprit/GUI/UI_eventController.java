@@ -165,7 +165,11 @@ public class UI_eventController implements Initializable {
   // rs.last();
         int x = rs.getRow();
         rs.first();
-
+Image imagex = new Image("image/" + rs.getString("nomImage"));
+        System.out.println("image/" + rs.getString("nomImage"));
+        image1.setImage(imagex);
+        
+        
      nom.setText(rs.getString("nom"));  
           date.setText(rs.getString("dateDebut"));
          lieu.setText(rs.getString("lieu"));

@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="1025.0" styleClass="parent" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.Admin_DashboardController">
+<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="1025.0" styleClass="parent" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.Admin_DashboardController">
    <children>
       <VBox prefHeight="600.0" prefWidth="300.0" styleClass="sidebar">
          <children>
@@ -140,7 +140,7 @@
                   <DropShadow blurType="ONE_PASS_BOX" color="WHITE" height="10.0" radius="4.5" width="10.0" />
                </effect>
                <children>
-                  <Label layoutX="14.0" layoutY="29.0" text="Dashboard Welcome Moetaz" textFill="#7c8184">
+                  <Label layoutX="14.0" layoutY="29.0" text="Dashboard " textFill="#7c8184">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -152,14 +152,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <ImageView fitHeight="133.0" fitWidth="126.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="313.0" fitWidth="785.0" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../../../image/75610795_1137056179966172_4584777721900433408_o.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="203.0" fitWidth="785.0" pickOnBounds="true" smooth="false">
-               <image>
-                  <Image url="@../../../../../../download.png" />
+                  <Image url="@../../../image/blog-image-1.jpg" />
                </image>
             </ImageView>
          

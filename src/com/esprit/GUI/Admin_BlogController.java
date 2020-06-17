@@ -198,7 +198,7 @@ public class Admin_BlogController implements Initializable {
     public static String saveToFileImageNormal(Image image) throws SQLException, IOException {
 
         String ext = "jpg";
-        File dir = new File("C:/Users/MisterSpy/Desktop/pi/piz/piz/src/image");
+        File dir = new File("C:/Users/LENOVO/Desktop/oussama/Projet/piz/src/image");
         String name = String.format("%s.%s", randomAlphaNumeric(10), ext);
         File outputFile = new File(dir, name);
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
@@ -215,7 +215,7 @@ public class Admin_BlogController implements Initializable {
         fc.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
         File selectedFile = fc.showOpenDialog(null);
         try {
-            BufferedImage bufferedImage = ImageIO.read(selectedFile);
+                BufferedImage bufferedImage = ImageIO.read(selectedFile);
             Image imageF = SwingFXUtils.toFXImage(bufferedImage, null);
             imagexw.setImage(imageF);
         } catch (IOException ex) {

@@ -71,78 +71,54 @@
             <Font name="Calibri Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="150.0" layoutY="533.0" mnemonicParsing="false" onAction="#backhome" prefHeight="26.0" prefWidth="60.0" style="-fx-background-color: #c2d6d6;" text="Back" />
+      <Button layoutX="131.0" layoutY="538.0" mnemonicParsing="false" onAction="#backhome" prefHeight="26.0" prefWidth="60.0" style="-fx-background-color: #c2d6d6;" text="Back" />
       <Button fx:id="next" layoutX="712.0" layoutY="533.0" mnemonicParsing="false" onAction="#afficherListe1" prefHeight="36.0" prefWidth="54.0" style="-fx-background-color: #48A5EA;" text="next" />
       <AnchorPane layoutX="87.0" layoutY="99.0" prefHeight="210.0" prefWidth="207.0">
          <children>
-            <ImageView fitHeight="131.0" fitWidth="142.0" layoutX="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/product-image-thumb-1.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="image1" fitHeight="131.0" fitWidth="142.0" layoutX="27.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="nom" layoutX="81.0" layoutY="139.0" text="Label" />
             <Label fx:id="price" layoutX="21.0" layoutY="179.0" text="Label" />
-            <Button fx:id="buy" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="Buy" />
+            <Button fx:id="buy" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" onAction="#addtopanier" style="-fx-background-color: #b3ff66;" text="add" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="307.0" layoutY="99.0" prefHeight="210.0" prefWidth="207.0">
          <children>
-            <ImageView fitHeight="131.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/product-image-thumb-3.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="image2" fitHeight="131.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="nom1" layoutX="81.0" layoutY="139.0" text="Label" />
             <Label fx:id="price1" layoutX="21.0" layoutY="179.0" text="Label" />
-            <Button fx:id="buy1" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="Buy" />
+            <Button fx:id="buy1" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" onAction="#addtopanier" style="-fx-background-color: #b3ff66;" text="dd" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="547.0" layoutY="99.0" prefHeight="210.0" prefWidth="207.0">
          <children>
-            <ImageView fitHeight="131.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/product-image-thumb-2.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="image3" fitHeight="131.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="nom2" layoutX="81.0" layoutY="139.0" text="Label" />
             <Label fx:id="price2" layoutX="21.0" layoutY="179.0" text="Label" />
-            <Button fx:id="buy2" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="Buy" />
+            <Button fx:id="buy2" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" onAction="#addtopanier" style="-fx-background-color: #b3ff66;" text="add" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="87.0" layoutY="323.0" prefHeight="210.0" prefWidth="207.0">
          <children>
-            <ImageView fitHeight="131.0" fitWidth="142.0" layoutX="21.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/product-image-thumb-3.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="image4" fitHeight="131.0" fitWidth="142.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="nom3" layoutX="81.0" layoutY="139.0" text="Label" />
             <Label fx:id="price3" layoutX="21.0" layoutY="179.0" text="Label" />
-            <Button fx:id="buy3" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="Buy" />
+            <Button fx:id="buy3" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" onAction="#addtopanier" style="-fx-background-color: #b3ff66;" text="add" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="294.0" layoutY="323.0" prefHeight="210.0" prefWidth="207.0">
          <children>
-            <ImageView fitHeight="131.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/product-image-thumb-1.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="image5" fitHeight="131.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="nom4" layoutX="81.0" layoutY="139.0" text="Label" />
             <Label fx:id="price4" layoutX="21.0" layoutY="179.0" text="Label" />
-            <Button fx:id="buy4" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="Buy" />
+            <Button fx:id="buy4" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" onAction="#addtopanier" style="-fx-background-color: #b3ff66;" text="add" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="540.0" layoutY="341.0" prefHeight="210.0" prefWidth="207.0">
          <children>
-            <ImageView fitHeight="131.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/monitor.png" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="image6" fitHeight="131.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="nom5" layoutX="81.0" layoutY="139.0" text="Label" />
             <Label fx:id="price5" layoutX="21.0" layoutY="179.0" text="Label" />
-            <Button fx:id="buy5" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" style="-fx-background-color: #b3ff66;" text="Buy" />
+            <Button fx:id="buy5" layoutX="128.0" layoutY="175.0" mnemonicParsing="false" onAction="#addtopanier" style="-fx-background-color: #b3ff66;" text="add" />
          </children>
       </AnchorPane>
    </children>

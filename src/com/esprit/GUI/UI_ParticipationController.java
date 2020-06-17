@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.esprit.GUI;
-
+import java.io.FileOutputStream;
 import com.esprit.Core.Controller;
 import com.esprit.models.Evenement;
 import com.esprit.models.Participation;
@@ -34,7 +34,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 /**
  * FXML Controller class
  *
@@ -58,6 +61,7 @@ public class UI_ParticipationController implements Initializable {
     private ImageView MyParticipation;
     @FXML
     private Circle btnClose;
+    
 
     /**
      * Initializes the controller class.
@@ -213,5 +217,29 @@ String Evenement ="";
         stage.show();  
         
     }
+    @FXML
+     public void GeneratePdf(){
+         try{
+         
+        // String file_name="C:/Users/LENOVO/Desktop/oussama/Projet/piz/src/PDF";
+                 File file_name = new File("C:/Users/LENOVO/Desktop/oussama/Projet/piz/src/PDF/aati.pdf");
+
+         Document document = new Document();
+         PdfWriter.getInstance(document, new FileOutputStream(file_name));
+         document.open();
+         
+         String name = Event.getText();
+         
+         Paragraph para = new Paragraph("Vous etes invité a participer dans l'evenement");
+         Paragraph para1 = new Paragraph(name);
+         document.add(para);
+         document.add(para1);
+         document.close();
+             System.out.println("sahha baba");
+         }
+         catch(Exception e){
+             System.out.println(e);
+         }
+         }
     
 }

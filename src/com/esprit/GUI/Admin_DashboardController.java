@@ -44,32 +44,30 @@ public class Admin_DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-@FXML
+    }
+
+    @FXML
 
     private void shop(ActionEvent event) throws IOException {
-   Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    }
+        stage.show();
 
+    }
 
     @FXML
     private void event(ActionEvent event) throws IOException {
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Event.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Event.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
-    
+        stage.show();
+
     }
 
     @FXML
@@ -80,57 +78,51 @@ public class Admin_DashboardController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
+        stage.show();
     }
-  
+
     @FXML
     private void users(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Personne.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Personne.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
+        stage.show();
+
     }
 
-
-
-   @FXML
+    @FXML
     private void location(ActionEvent event) throws IOException {
-          Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Location.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Location.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
+        stage.show();
+
     }
-    
-     @FXML
-    private void handleMouseEvenet(MouseEvent event){
-        if (event.getSource() == btnClose){
+
+    @FXML
+    private void handleMouseEvenet(MouseEvent event) {
+        if (event.getSource() == btnClose) {
             System.exit(0);
         }
     }
 
-@FXML
-     private void mousepressedslogout(MouseEvent event) throws IOException{
+    @FXML
+    private void mousepressedslogout(MouseEvent event) throws IOException {
         // change it to store interface
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/interface_connexion1.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/interface_connexion1.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();  
-        
-    }
-   
-}
-    
+        stage.show();
 
+    }
+
+}

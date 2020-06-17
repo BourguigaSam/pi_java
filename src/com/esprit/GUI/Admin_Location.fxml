@@ -8,16 +8,25 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="1025.0" styleClass="parent" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.Admin_LocationController">
+<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="1025.0" styleClass="parent" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.GUI.Admin_LocationController">
    <children>
       <VBox prefHeight="600.0" prefWidth="300.0" styleClass="sidebar">
          <children>
+            <AnchorPane prefHeight="28.0" prefWidth="92.0">
+               <children>
+                  <Circle fx:id="btnClose" fill="#f22a07" layoutX="7.0" layoutY="10.0" onMouseClicked="#handleMouseEvenet" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="btnMin" fill="#1fff42" layoutX="55.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#ffcd21" layoutX="31.0" layoutY="10.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </AnchorPane>
             <Label prefHeight="75.0" prefWidth="300.0" style="-fx-background-color: #00A2D3;" text="Admin Pannel" textFill="WHITE">
                <padding>
                   <Insets left="10.0" />
@@ -27,14 +36,6 @@
                </font>
             </Label>
             <HBox alignment="CENTER_LEFT" styleClass="btns">
-               <children>
-                  <FontAwesomeIcon glyphStyle="-fx-fill:#7C8184" iconName="SEARCH" size="1.3em" />
-                  <TextField promptText="Search" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Calibri Light" size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -86,20 +87,8 @@
                   <Insets left="10.0" />
                </padding>
             </HBox>
-            <VBox prefHeight="226.0" prefWidth="300.0" styleClass="box" VBox.vgrow="ALWAYS">
+            <VBox prefHeight="317.0" prefWidth="280.0" styleClass="box" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox prefHeight="34.0" prefWidth="300.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="btns">
-                           <children>
-                              <FontAwesomeIcon glyphStyle="-fx-fill:#7C8184" iconName="LIST" size="1.3em" />
-                              <Button fx:id="Contrat" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#Contrat" prefHeight="25.0" prefWidth="273.0" style="-fx-background-color: transparent;" text="Contrats" textFill="#7c8184" />
-                           </children>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </HBox>
-                     </children></HBox>
                   <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="btns">
                      <children>
                         <FontAwesomeIcon glyphStyle="-fx-fill:#7C8184" iconName="USER" size="1.3em" />
@@ -113,7 +102,7 @@
             </VBox>
          </children>
       </VBox>
-      <VBox layoutX="300.0" prefHeight="600.0" prefWidth="724.0">
+      <VBox layoutX="310.0" layoutY="10.0" prefHeight="583.0" prefWidth="732.0">
          <children>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="724.0" style="-fx-background-color: #fff;">
                <effect>
@@ -147,9 +136,8 @@
                         <TextField fx:id="tf_recherche" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SearchByName" opacity="0.62" prefHeight="28.0" prefWidth="212.0" promptText="Search for Location" />
                      </children>
                   </HBox>
-                  <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="727.0">
+                  <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="732.0">
                      <columns>
-                        <TableColumn fx:id="id" prefWidth="44.0" text="id" />
                         <TableColumn fx:id="matricule" prefWidth="75.0" text="matricule" />
                         <TableColumn fx:id="marque" prefWidth="82.0" text="marque" />
                         <TableColumn fx:id="model" prefWidth="86.0" text="model" />
@@ -168,7 +156,7 @@
                      <children>
                         <HBox prefHeight="72.0" prefWidth="344.0">
                            <children>
-                              <Button fx:id="btnUpdate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#UpdateLocation" prefHeight="51.0" prefWidth="278.0" style="-fx-background-color: #00A2D3;" text="Update Location" textFill="WHITE">
+                              <Button fx:id="btnUpdate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="51.0" prefWidth="278.0" style="-fx-background-color: #00A2D3;" text="Update Location" textFill="WHITE">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -176,7 +164,7 @@
                            </children>
                         </HBox>
                         <HBox alignment="TOP_RIGHT" prefHeight="74.0" prefWidth="87.0" />
-                        <Button fx:id="btnSupprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#DeleteLocation" prefHeight="51.0" prefWidth="278.0" style="-fx-background-color: #00A2D3;" text="Delete Location" textFill="WHITE">
+                        <Button fx:id="btnSupprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="51.0" prefWidth="278.0" style="-fx-background-color: #00A2D3;" text="Delete Location" textFill="WHITE">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -185,11 +173,10 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="727.0">
+            <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="119.0" prefWidth="727.0">
                <children>
                   <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="728.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="idT" opacity="0.72" prefHeight="25.0" prefWidth="76.0" promptText="id" />
                         <TextField fx:id="matriculeT" opacity="0.72" prefHeight="25.0" prefWidth="107.0" promptText="matricule" />
                         <TextField fx:id="marqueT" opacity="0.72" prefHeight="25.0" prefWidth="106.0" promptText="marque" />
                         <TextField fx:id="modelT" opacity="0.72" prefHeight="25.0" prefWidth="139.0" promptText="model" />
@@ -203,11 +190,13 @@
                      <children>
                         <TextField fx:id="imageT" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="222.0" promptText="image" />
                         <Button fx:id="btn_image" mnemonicParsing="false" text="Add Image" />
+                        <ImageView fx:id="imagexw" fitHeight="35.0" fitWidth="84.0" onMouseClicked="#addImage" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
                   <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#AddLocation" prefHeight="43.0" prefWidth="217.0" style="-fx-background-color: #00A2D3;" text="Add Location" textFill="#fcfcfc" />
                </children>
             </VBox>
+            <Button mnemonicParsing="false" onAction="#backhome" prefHeight="26.0" prefWidth="60.0" style="-fx-background-color: #c2d6d6;" text="Back" />
          </children>
       </VBox>
    </children>

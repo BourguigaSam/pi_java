@@ -28,17 +28,17 @@ public class ServiceEvenement {
 
 public void ajouterEvenement(Evenement e) {
         try {
-            String requete = "INSERT INTO evenement (id,nom,dateDebut,nbre_participants,lieu,prix,type,datefin,id_user) VALUES (?,?,?,?,?,?,?,?,?)";
+            String requete = "INSERT INTO evenement (nom,dateDebut,nbre_participants,lieu,prix,type,datefin,id_user) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement pst = cnx.prepareStatement(requete);
-            pst.setInt(1, e.getId());
-            pst.setString(2, e.getNom());
-            pst.setDate(3, e.getDateDebut());
-            pst.setInt(4, e.getNbre_participants());
-            pst.setString(5, e.getLieu());
-            pst.setDouble(6, e.getPrix());
-            pst.setString(7, e.getType());
-            pst.setDate(8, e.getDatefin());
-            pst.setInt(9,e.getId_user());
+           // pst.setInt(1, e.getId());
+            pst.setString(1, e.getNom());
+            pst.setDate(2, e.getDateDebut());
+            pst.setInt(3, e.getNbre_participants());
+            pst.setString(4, e.getLieu());
+            pst.setDouble(5, e.getPrix());
+            pst.setString(6, e.getType());
+            pst.setDate(7, e.getDatefin());
+            pst.setInt(8,e.getId_user());
             pst.executeUpdate();
             System.out.println("Evenement ajoutée !");
 
@@ -106,7 +106,7 @@ public void ajouterEvenement(Evenement e) {
             PreparedStatement pst = cnx.prepareStatement(requete);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-        evenement_list.add(new Evenement(rs.getInt("id"), rs.getString("nom"), rs.getDate("dateDebut"), rs.getInt("nbre_participants"),rs.getString("lieu"), rs.getDouble("prix"),rs.getString("type"), rs.getDate("datefin")));
+        evenement_list.add(new Evenement( rs.getString("nom"), rs.getDate("dateDebut"), rs.getInt("nbre_participants"),rs.getString("lieu"), rs.getDouble("prix"),rs.getString("type"), rs.getDate("datefin")));
  
             }
 
@@ -127,7 +127,7 @@ public ObservableList<Evenement> getEv1() {
             PreparedStatement pst = cnx.prepareStatement(requete);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-        evenement_list.add(new Evenement(rs.getInt("id"), rs.getString("nom"), rs.getDate("dateDebut"), rs.getInt("nbre_participants"),rs.getString("lieu"), rs.getDouble("prix"),rs.getString("type"), rs.getDate("datefin")));
+        evenement_list.add(new Evenement( rs.getString("nom"), rs.getDate("dateDebut"), rs.getInt("nbre_participants"),rs.getString("lieu"), rs.getDouble("prix"),rs.getString("type"), rs.getDate("datefin")));
  
             }
 
@@ -186,7 +186,7 @@ a=rs.getInt(1);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
   
-   es.setId(rs.getInt("id"));
+  // es.setId(rs.getInt("id"));
    es.setNom( rs.getString("nom"));
    es.setDateDebut(rs.getDate("dateDebut"));
    es.setNbre_participants(rs.getInt("nbre_participants"));

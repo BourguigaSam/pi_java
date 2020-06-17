@@ -60,6 +60,14 @@ public class Produit {
         this.image=image;
 
     }
+
+    public Produit(String nom, String description, double prix, int quantity, String image) {
+        this.nom = nom;
+        this.description = description;
+        this.prix = prix;
+        this.quantity = quantity;
+        this.image = image;
+    }
    
     
      public Produit(int id ,String nom,String description,double prix,int quantity,String image,Date date){

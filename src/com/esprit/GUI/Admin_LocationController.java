@@ -5,8 +5,11 @@
  */
 package com.esprit.GUI;
 
+import static com.esprit.GUI.Admin_BlogController.randomAlphaNumeric;
+import static com.esprit.GUI.Admin_BlogController.saveToFileImageNormal;
 import com.esprit.models.Location;
 import com.esprit.services.ServiceLocation;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,6 +17,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -23,6 +27,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,8 +43,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import javax.imageio.ImageIO;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -52,8 +65,6 @@ public class Admin_LocationController implements Initializable {
     private TextField tf_recherche;
     @FXML
     private TableView<Location> tableView;
-    @FXML
-    private TableColumn<?, ?> id;
     @FXML
     private TableColumn<?, ?> matricule;
     @FXML
@@ -74,8 +85,6 @@ public class Admin_LocationController implements Initializable {
     private Button btnUpdate;
     @FXML
     private Button btnSupprimer;
-    @FXML
-    private TextField idT;
     @FXML
     private TextField matriculeT;
     @FXML
@@ -101,6 +110,10 @@ public class Admin_LocationController implements Initializable {
     private FileInputStream fis;
     @FXML
     private Button Contrat;
+    @FXML
+    private ImageView imagexw;
+    @FXML
+    private Circle btnClose;
 
     /**
      * Initializes the controller class.
@@ -112,7 +125,7 @@ public class Admin_LocationController implements Initializable {
         ArrayList<Location> liste = (ArrayList<Location>) ser.afficherLocation();
         ObservableList observableList = FXCollections.observableArrayList(liste);
         tableView.setItems(observableList);     // search.setVisible(false);
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        //id.setCellValueFactory(new PropertyValueFactory<>("id"));
         matricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
         marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
         model.setCellValueFactory(new PropertyValueFactory<>("model"));
@@ -127,13 +140,30 @@ public class Admin_LocationController implements Initializable {
             cat = (Location) tableView.getSelectionModel().getSelectedItem();
 
             if (cat == null) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Alerte");
-                alert.setHeaderText("Alerte");
-                alert.setContentText("Il faut tout d'abord sélectionner une location");
-                alert.show();
+               
+                   TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("Alerte");
+            tray.setMessage("Il faut tout d'abord sélectionner une location");
+            tray.setNotificationType(NotificationType.ERROR);
+            tray.showAndDismiss(Duration.millis(3000));
+                
             } else {
 
+                       TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("");
+            tray.setMessage("BE CAREFUL");
+            tray.setNotificationType(NotificationType.WARNING);
+            tray.showAndDismiss(Duration.millis(3000));
+            
+                
                 // get Selected Item
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir supprimer cette location?", ButtonType.YES, ButtonType.NO, null);
                 alert.showAndWait();
@@ -152,7 +182,7 @@ public class Admin_LocationController implements Initializable {
         tableView.setOnMouseClicked(e -> {
             Location cat = new Location();
             cat = (Location) tableView.getSelectionModel().getSelectedItem();
-            idT.setText(String.valueOf(cat.getId()));
+            //   idT.setText(String.valueOf(cat.getId()));
             matriculeT.setText(cat.getMatricule());
             puissanceT.setText(cat.getPuissance());
             marqueT.setText(cat.getMarque());
@@ -181,21 +211,20 @@ public class Admin_LocationController implements Initializable {
                 alert.showAndWait();
                 Statement statement = null;
                 ResultSet resultSet = null;
-                   Location ca = new Location();
-                    ca.setId(Integer.parseInt(idT.getText()));
-                    ca.setMatricule(matriculeT.getText());
-                    ca.setPuissance(puissanceT.getText());
-                    ca.setMarque(marqueT.getText());
-                    ca.setModel(modelT.getText());
-                    ca.setCategory(categoryT.getText());
-                    ca.setDailyPrice(Double.parseDouble(dailyPriceT.getText()));
+                Location ca = new Location();
+             //   ca.setId(Integer.parseInt(idT.getText()));
+                ca.setMatricule(matriculeT.getText());
+                ca.setPuissance(puissanceT.getText());
+                ca.setMarque(marqueT.getText());
+                ca.setModel(modelT.getText());
+                ca.setCategory(categoryT.getText());
+                ca.setDailyPrice(Double.parseDouble(dailyPriceT.getText()));
 
-                    ca.setImage_id(imageT.getText());
-                    ca.setType(typeT.getText());
-
+                ca.setImage_id(imageT.getText());
+                ca.setType(typeT.getText());
 
                 if (alert.getResult() == ButtonType.YES) {
-                 
+
                     serviceLocation.modifier(ca);
                     ChargerLocation();
 
@@ -204,9 +233,89 @@ public class Admin_LocationController implements Initializable {
 
         });
 
-        
-       
+        Stage stage = new Stage();
+        btn_image.setOnAction(e -> {
+            stage.setTitle("File Chooser ");
 
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open image File");
+
+            file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                imageT.setText(file.getAbsolutePath());
+                System.out.println(file.getAbsolutePath());
+                imageT.setText("");
+
+                try {
+
+                    fis = new FileInputStream(file);// file is selected using filechooser which is in last tutorial
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Admin_LocationController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    //     Image image=  new Image(file.toURI().toString());
+                    URL url1 = file.toURI().toURL();
+                    System.out.println(new Image(url1.toExternalForm()));
+                    //image_post.setImage(new Image(url1.toExternalForm()));
+                } catch (MalformedURLException ex) {
+
+                    Logger.getLogger(Admin_LocationController.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
+
+            };
+
+        });
+
+    }
+
+    @FXML
+    private void addImage(MouseEvent event) {
+        FileChooser fc = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (.png)", "*.PNG");
+        fc.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File selectedFile = fc.showOpenDialog(null);
+        try {
+            BufferedImage bufferedImage = ImageIO.read(selectedFile);
+            Image imageF = SwingFXUtils.toFXImage(bufferedImage, null);
+            imagexw.setImage(imageF);
+        } catch (IOException ex) {
+            System.out.println("add image");
+        }
+    }
+    
+      // random
+    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    public static String randomAlphaNumeric(int count) {
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
+    }
+
+
+    public static String saveToFileImageNormal(Image image) throws SQLException, IOException {
+
+        String ext = "jpg";
+        File dir = new File("C:/Users/LENOVO/Desktop/oussama/Projet/piz/src/image");
+        String name = String.format("%s.%s", randomAlphaNumeric(10), ext);
+        File outputFile = new File(dir, name);
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        ImageIO.write(bImage, "png", outputFile);
+        return name;
+    }
+
+    @FXML
+    private void handleMouseEvenet(MouseEvent event) {
+        if (event.getSource() == btnClose) {
+            System.exit(0);
+        }
     }
 
     public void ChargerLocation() {
@@ -215,7 +324,7 @@ public class Admin_LocationController implements Initializable {
 
         ObservableList observableList = FXCollections.observableArrayList(listeLocation);
         tableView.setItems(observableList);
-        idT.setText("");
+        // idT.setText("");
         matriculeT.setText("");
         puissanceT.setText("");
         marqueT.setText("");
@@ -253,7 +362,7 @@ public class Admin_LocationController implements Initializable {
 
     }
 
-    @FXML
+    /* @FXML
     private void UpdateLocation(ActionEvent event) {
 
     }
@@ -261,41 +370,58 @@ public class Admin_LocationController implements Initializable {
     @FXML
     private void DeleteLocation(ActionEvent event) {
     }
-
+     */
     @FXML
-    private void AddLocation(ActionEvent event) throws IOException {
-        if (idT.getText().isEmpty() || matriculeT.getText().isEmpty()
+    private void AddLocation(ActionEvent event) throws IOException, SQLException {
+        if (matriculeT.getText().isEmpty()
                 || marqueT.getText().isEmpty()
                 || modelT.getText().isEmpty() || categoryT.getText().isEmpty()
-                || puissanceT.getText().isEmpty() || dailyPriceT.getText().isEmpty() || typeT.getText().isEmpty() || imageT.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(null);
-            alert.setContentText("Il faut remplir les champs obligatoires ");
-            alert.showAndWait();
+                || puissanceT.getText().isEmpty() || dailyPriceT.getText().isEmpty() || typeT.getText().isEmpty() ) {
+           
+                
+                   TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("Tous les champs sont obligatoires");
+            tray.setMessage("IL FAUT REMPLIRE TOUS LES CHAMPS ");
+            tray.setNotificationType(NotificationType.ERROR);
+            tray.showAndDismiss(Duration.millis(3000));
+            
         } else {
-            Location l = new Location(Integer.valueOf(idT.getText()), matriculeT.getText(),
-                    marqueT.getText(), modelT.getText(), categoryT.getText(), puissanceT.getText(), Double.valueOf(dailyPriceT.getText()), typeT.getText(), imageT.getText());
+            Image img = imagexw.getImage();
+            String imgFile = saveToFileImageNormal(img);
+           
+            Location l = new Location( matriculeT.getText(),
+                    marqueT.getText(), modelT.getText(), categoryT.getText(), puissanceT.getText(), Double.valueOf(dailyPriceT.getText()), typeT.getText(),imgFile);
             serviceLocation.ajouterLocation(l);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Nouvelle Location");
-            alert.setHeaderText(null);
-            alert.setContentText("Location  ajouté !!  ");
-            alert.showAndWait();
+                
+                   TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.SLIDE;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("Felicitation");
+            tray.setMessage("LOCATION AJOUTEE !!");
+            tray.setNotificationType(NotificationType.INFORMATION);
+            tray.showAndDismiss(Duration.millis(3000));
+            
+            
             ChargerLocation();
         }
     }
 
     @FXML
-    private void shop(ActionEvent event) {
-        /*   Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
+    private void shop(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); */
+        stage.show();
 
     }
 
@@ -309,6 +435,17 @@ public class Admin_LocationController implements Initializable {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    @FXML
+    private void backhome(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Dashboard.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -348,7 +485,7 @@ public class Admin_LocationController implements Initializable {
 
     @FXML
     private void Contrat(ActionEvent event) throws IOException {
-          Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Contrats.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Contrats.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -35,6 +35,17 @@ this.type=type;
 this.image_id=image_id;
 
 }
+public Location(String matricule,String marque,String model,String category,String puissance,double dailyPrice,String image_id){
+
+this.matricule=matricule;
+this.marque=marque;
+this.model=model;
+this.category=category;
+this.puissance=puissance;
+this.dailyPrice=dailyPrice;
+this.image_id=image_id;
+
+}
 public Location(String matricule,String marque,String model,String category,String puissance,double dailyPrice,String type,String image_id){
 this.matricule=matricule;
 this.marque=marque;

@@ -5,14 +5,17 @@
  */
 package com.esprit.GUI;
 
+import static com.esprit.GUI.Admin_BlogController.saveToFileImageNormal;
 import com.esprit.models.Produit;
 import com.esprit.services.ServiceProduit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -25,6 +28,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,11 +46,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
+import javax.imageio.ImageIO;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -94,7 +104,7 @@ public class Admin_ShopController implements Initializable {
     @FXML
     private DatePicker dateT;
     @FXML
-    private TextField categoryT ;
+    private TextField categoryT;
     @FXML
     private TextField regionT;
     @FXML
@@ -105,185 +115,184 @@ public class Admin_ShopController implements Initializable {
     private Button btnAdd;
     @FXML
     private Circle btnClose;
-     private File file;
+    @FXML
+    private ImageView imagexw;
+    private File file;
     private FileInputStream fis;
-private ServiceProduit serviceProduit =new ServiceProduit();
+    private ServiceProduit serviceProduit = new ServiceProduit();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-     ChargerShop();
+        ChargerShop();
 
-   ServiceProduit ser = new ServiceProduit();
+        ServiceProduit ser = new ServiceProduit();
         ArrayList<Produit> liste = (ArrayList<Produit>) ser.afficherProduit();
         ObservableList observableList = FXCollections.observableArrayList(liste);
-       tableView.setItems(observableList);     // search.setVisible(false);
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableView.setItems(observableList);     // search.setVisible(false);
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-         description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
         prix.setCellValueFactory(new PropertyValueFactory<>("prix"));
         quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
-       // p.setCellValueFactory(new PropertyValueFactory<>("p"));
-      // category.setCellValueFactory(new PropertyValueFactory<>("category"));
-     // region.setCellValueFactory(new PropertyValueFactory<>("region"));
-    image.setCellValueFactory(new PropertyValueFactory<>("image"));
-     tableView.setOnMouseClicked(x->{
-         Produit cat = new Produit();
-cat = (Produit) tableView.getSelectionModel().getSelectedItem();
-idT.setText(String.valueOf(cat.getId()));
-nomT.setText(cat.getNom());
-descriptionT.setText(cat.getDescription());
-prixT.setText(String.valueOf(cat.getPrix()));
-quantityT.setText(String.valueOf(cat.getQuantity()));
-
-         
-     });
-     
-btnUpdate.setOnAction(e->{ Produit cat = new Produit();
-cat = (Produit) tableView.getSelectionModel().getSelectedItem();
-
-        if (cat== null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Alerte");
-            alert.setHeaderText("Alerte");
-            alert.setContentText("Il faut tout d'abord sélectionner un produit");
-            alert.show();
-        } else {
-
-            // get Selected Item
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir modifier ce Produit?", ButtonType.YES, ButtonType.NO, null);
-            alert.showAndWait();
-
-            if (alert.getResult() == ButtonType.YES) {
-                //remove selected item from the table list
-                Produit ca = new Produit();
-                ca.setId(Integer.parseInt(idT.getText()));
-                 ca.setNom(nomT.getText());
-                 ca.setDescription(descriptionT.getText());
-                 ca.setImage(imageT.getText());
-                 ca.setQuantity(Integer.parseInt(quantityT.getText()));
-                 ca.setPrix(Double.parseDouble(prixT.getText()));
-//                     ca.setDate(java.sql.Date.valueOf(dateT.getValue()));
-             
-                serviceProduit.modifierProduit(ca);
-                //bonplanService.SupprimerCategorie(cat);
-                 tableView.getItems().clear();
-        
-            tableView.getItems().addAll(serviceProduit.afficherProduit());
-            ChargerShop();
-            }
-        }
-    
-});
-      btnSupprimer .setOnMouseClicked(x -> {
- Produit cat = new Produit();
-cat = (Produit) tableView.getSelectionModel().getSelectedItem();
-
-        if (cat== null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Alerte");
-            alert.setHeaderText("Alerte");
-            alert.setContentText("Il faut tout d'abord sélectionner un Produit");
-            alert.show();
-        } else {
-
-            // get Selected Item
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir supprimer ce produit?", ButtonType.YES, ButtonType.NO, null);
-            alert.showAndWait();
-
-            if (alert.getResult() == ButtonType.YES) {
-                //remove selected item from the table list
-                serviceProduit.supprimerProduit(cat);
-                //bonplanService.SupprimerCategorie(cat);
-                 tableView.getItems().clear();
-        
-            tableView.getItems().addAll(serviceProduit.afficherProduit());
-            ChargerShop();
-            }
-        }
+        image.setCellValueFactory(new PropertyValueFactory<>("image"));
+        tableView.setOnMouseClicked(x -> {
+            Produit cat = new Produit();
+            cat = (Produit) tableView.getSelectionModel().getSelectedItem();
+            nomT.setText(cat.getNom());
+            descriptionT.setText(cat.getDescription());
+            prixT.setText(String.valueOf(cat.getPrix()));
+            quantityT.setText(String.valueOf(cat.getQuantity()));
+             imageT.setText(cat.getImage());
         });
 
-      
-      
-      
-      
-      Stage stage = new Stage();
+        btnUpdate.setOnAction(e -> {
+            Produit cat = new Produit();
+            cat = (Produit) tableView.getSelectionModel().getSelectedItem();
+
+            if (cat == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Alerte");
+                alert.setHeaderText("Alerte");
+                alert.setContentText("Il faut tout d'abord sélectionner un produit");
+                alert.show();
+            } else {
+
+                // get Selected Item
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir modifier ce Produit?", ButtonType.YES, ButtonType.NO, null);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.YES) {
+                    //remove selected item from the table list
+                    Produit ca = new Produit();
+                    ca.setId((cat.getId()));
+                    ca.setNom(nomT.getText());
+                    ca.setDescription(descriptionT.getText());
+                    ca.setImage(imageT.getText());
+                    ca.setQuantity(Integer.parseInt(quantityT.getText()));
+                    ca.setPrix(Double.parseDouble(prixT.getText()));
+
+                    serviceProduit.modifierProduit(ca);
+                    //bonplanService.SupprimerCategorie(cat);
+                    tableView.getItems().clear();
+
+                    tableView.getItems().addAll(serviceProduit.afficherProduit());
+                    ChargerShop();
+                }
+            }
+
+        });
+        btnSupprimer.setOnMouseClicked(x -> {
+            Produit cat = new Produit();
+            cat = (Produit) tableView.getSelectionModel().getSelectedItem();
+
+            if (cat == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Alerte");
+                alert.setHeaderText("Alerte");
+                alert.setContentText("Il faut tout d'abord sélectionner un Produit");
+                alert.show();
+            } else {
+
+                // get Selected Item
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes vous sure de vouloir supprimer ce produit?", ButtonType.YES, ButtonType.NO, null);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.YES) {
+                    //remove selected item from the table list
+                    serviceProduit.supprimerProduit(cat);
+                    //bonplanService.SupprimerCategorie(cat);
+                    tableView.getItems().clear();
+
+                    tableView.getItems().addAll(serviceProduit.afficherProduit());
+                    ChargerShop();
+                }
+            }
+        });
+
+        Stage stage = new Stage();
         btn_image.setOnAction(e -> {
             stage.setTitle("File Chooser ");
-            
+
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open image File");
-            
+
             file = fileChooser.showOpenDialog(stage);
             if (file != null) {
                 imageT.setText(file.getAbsolutePath());
                 System.out.println(file.getAbsolutePath());
                 imageT.setText("");
-                
+
                 try {
-                     
-                
-                    
+
                     fis = new FileInputStream(file);// file is selected using filechooser which is in last tutorial
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Admin_LocationController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 try {
                     //     Image image=  new Image(file.toURI().toString());
                     URL url1 = file.toURI().toURL();
                     System.out.println(new Image(url1.toExternalForm()));
                     //image_post.setImage(new Image(url1.toExternalForm()));
                 } catch (MalformedURLException ex) {
-                    
+
                     Logger.getLogger(Admin_LocationController.class.getName()).log(Level.SEVERE, null, ex);
-                    
+
                 }
-                
+
             };
-            
+
         });
-        
-    
- 
- 
 
-
-
-
-    }    
+    }
     @FXML
-    private void handleMouseEvenet(MouseEvent event){
-        if (event.getSource() == btnClose){
+    private void addImage(MouseEvent event) {
+        FileChooser fc = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (.png)", "*.PNG");
+        fc.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File selectedFile = fc.showOpenDialog(null);
+        try {
+            BufferedImage bufferedImage = ImageIO.read(selectedFile);
+            Image imageF = SwingFXUtils.toFXImage(bufferedImage, null);
+            imagexw.setImage(imageF);
+        } catch (IOException ex) {
+            System.out.println("add image");
+        }
+    }
+    @FXML
+    private void handleMouseEvenet(MouseEvent event) {
+        if (event.getSource() == btnClose) {
             System.exit(0);
         }
     }
 
     @FXML
     private void shop(ActionEvent event) throws IOException {
-           Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Shop.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();     
+        stage.show();
     }
 
     @FXML
     private void event(ActionEvent event) throws IOException {
-          Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Event.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Event.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
+        stage.show();
+
     }
 
     @FXML
@@ -294,7 +303,7 @@ cat = (Produit) tableView.getSelectionModel().getSelectedItem();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
+        stage.show();
     }
 
     @FXML
@@ -305,28 +314,26 @@ cat = (Produit) tableView.getSelectionModel().getSelectedItem();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
-}
+        stage.show();
+
+    }
+
     @FXML
     private void location(ActionEvent event) throws IOException {
-          Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Location.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/GUI/Admin_Location.fxml"));
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show(); 
-    
-    
+        stage.show();
+
     }
-   
-    
+
     @FXML
     private void SearchByName(ActionEvent event) {
-    
-          ServiceProduit bs = new ServiceProduit();
+
+        ServiceProduit bs = new ServiceProduit();
         ArrayList AL = (ArrayList) bs.afficherProduit();
         ObservableList OReservation = FXCollections.observableArrayList(AL);
         FilteredList<Produit> filtred_c = new FilteredList<>(OReservation, e -> true);
@@ -336,8 +343,8 @@ cat = (Produit) tableView.getSelectionModel().getSelectedItem();
                     if (newValue == null || newValue.isEmpty()) {
                         return true;
                     }
-                  //  String toLowerCaseNewValue = newValue.toLowerCase();
-                    if ((p.getNom().contains(newValue)) ) {
+                    //  String toLowerCaseNewValue = newValue.toLowerCase();
+                    if ((p.getNom().contains(newValue))) {
                         return true;
 
                     }
@@ -348,83 +355,98 @@ cat = (Produit) tableView.getSelectionModel().getSelectedItem();
         });
         tableView.setItems(filtred_c);
 
-    
-        
-        
-    
     }
 
     @FXML
     private void UpdateProduit(ActionEvent event) {
     }
+        private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+    public static String randomAlphaNumeric(int count) {
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
+    }
+
+    public static String saveToFileImageNormal(Image image) throws SQLException, IOException {
+
+        String ext = "jpg";
+        File dir = new File("C:/Users/LENOVO/Desktop/oussama/Projet/piz/src/image");
+        String name = String.format("%s.%s", randomAlphaNumeric(10), ext);
+        File outputFile = new File(dir, name);
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        ImageIO.write(bImage, "png", outputFile);
+        return name;
+    }
     @FXML
-    private void AddProduit(ActionEvent event) {
-    
-      if (idT.getText().isEmpty() || nomT.getText().isEmpty() 
-                ||  descriptionT.getText().isEmpty()||  prixT.getText().isEmpty()
-              ||  quantityT.getText().isEmpty()||  imageT.getText().isEmpty()
-                ) {          
+    private void AddProduit(ActionEvent event) throws SQLException, IOException {
+
+        if ( nomT.getText().isEmpty()
+                || descriptionT.getText().isEmpty() || prixT.getText().isEmpty()
+                || quantityT.getText().isEmpty() ) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
             alert.setContentText("Il faut remplir les champs obligatoires ");
             alert.showAndWait();
-        }
-        else
-        {
-     
-         LocalDate localDateDebut = dateT.getValue();
-           Instant instant = Instant.from(localDateDebut.atStartOfDay(ZoneId.systemDefault()));
-           java.util.Date date = Date.from(instant);
-            java.sql.Date dte = new java.sql.Date(date.getTime());
-        int s = Integer.parseInt(idT.getText());
-              int v = Integer.parseInt(quantityT.getText());
+        } else {
 
-        ServiceProduit serviceProduit2 =new ServiceProduit();
+            int v = Integer.parseInt(quantityT.getText());
 
-      Produit p = new Produit(s,nomT.getText()
-                    , descriptionT.getText(),Double.valueOf(prixT.getText()),v,imageT.getText(),dte);
+            ServiceProduit serviceProduit2 = new ServiceProduit();
+            Image img = imagexw.getImage();
+            String imgFile = saveToFileImageNormal(img);
+            Produit p = new Produit(nomT.getText(),
+                     descriptionT.getText(), Double.valueOf(prixT.getText()), v, imgFile);
             serviceProduit2.ajouterProduit(p);
-          
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Nouveau Produit");
-            alert.setHeaderText(null);
-            alert.setContentText("produit ajouté !! ");
-            alert.showAndWait();
-        ChargerShop();
-       }
-     
+
+            TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.POPUP;
+            
+            
+            tray.setAnimationType(type);
+            tray.setTitle("Success Add Blog");
+            tray.setMessage("Remember Done Better Then Perefect");
+            tray.setNotificationType(NotificationType.SUCCESS);
+            tray.showAndDismiss(Duration.millis(3000));
+            ChargerShop();
+        }
+
     }
+    
 
     private void ChargerShop() {
- ServiceProduit serviceBlog = new ServiceProduit();
+        ServiceProduit serviceBlog = new ServiceProduit();
         ArrayList<Produit> listeProduit = (ArrayList<Produit>) serviceBlog.afficherProduit();
         ObservableList observableList = FXCollections.observableArrayList(listeProduit);
         tableView.setItems(observableList);
 
     }
+
     private void setdate(ActionEvent event) {
         DatePicker maxDate = new DatePicker();
-    
-LocalDate localDate = dateT.getValue();
 
-   maxDate.setValue(localDate);
+        LocalDate localDate = dateT.getValue();
 
-final Callback<DatePicker, DateCell> dayCellFactoryfin;
-dayCellFactoryfin = (final DatePicker datePicker) -> new DateCell() {
-    @Override
-    public void updateItem(LocalDate item, boolean empty) {
-        super.updateItem(item, empty);
-        if (item.isBefore(maxDate.getValue())) { //Disable all dates after required date
-            setDisable(true);
-            setStyle("-fx-background-color: #7f7a7a;"); //To set background on different color
-        }
+        maxDate.setValue(localDate);
+
+        final Callback<DatePicker, DateCell> dayCellFactoryfin;
+        dayCellFactoryfin = (final DatePicker datePicker) -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item.isBefore(maxDate.getValue())) { //Disable all dates after required date
+                    setDisable(true);
+                    setStyle("-fx-background-color: #7f7a7a;"); //To set background on different color
+                }
+            }
+        };
+
+        dateT.setDayCellFactory(dayCellFactoryfin);
+
     }
-};
 
-dateT.setDayCellFactory(dayCellFactoryfin);
-        
-    }
-    
 }

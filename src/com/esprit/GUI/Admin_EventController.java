@@ -8,9 +8,16 @@ package com.esprit.GUI;
 import com.esprit.Core.Controller;
 import com.esprit.models.Evenement;
 import com.esprit.services.ServiceEvenement;
+import com.gluonhq.impl.charm.a.b.b.e;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -19,9 +26,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,8 +49,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javax.imageio.ImageIO;
 /**
  * FXML Controller class
  *
@@ -93,6 +108,16 @@ public class Admin_EventController implements Initializable {
     private Label var;
     @FXML
     private Button btnAdd1;
+      @FXML
+    private TextField imageT;
+    @FXML
+    private Button btn_image;
+  @FXML
+    private ImageView imagexw;
+    
+   private File file;
+    private FileInputStream fis;
+   
 
     /**
      * Initializes the controller class.
@@ -105,7 +130,7 @@ public class Admin_EventController implements Initializable {
         ArrayList<Evenement> liste = (ArrayList<Evenement>) ser.afficherEvenement();
         ObservableList observableList = FXCollections.observableArrayList(liste);
        tableView.setItems(observableList);     // search.setVisible(false);
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+       // id.setCellValueFactory(new PropertyValueFactory<>("id"));
        nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         debut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         nbre.setCellValueFactory(new PropertyValueFactory<>("nbre_participants"));
@@ -144,7 +169,7 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
  tableView.setOnMouseClicked(e->{
       Evenement cat = new Evenement();
 cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
-idT.setText(String.valueOf(cat.getId()));
+//idT.setText(String.valueOf(cat.getId()));
                  nomT.setText(cat.getNom());
                  nbreT.setText(String.valueOf(cat.getNbre_participants()));
                  lieuxT.setText(cat.getLieu());
@@ -158,7 +183,7 @@ idT.setText(String.valueOf(cat.getId()));
      tableView.setOnMouseClicked(e->{
       Evenement cat = new Evenement();
 cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
-idT.setText(String.valueOf(cat.getId()));
+//idT.setText(String.valueOf(cat.getId()));
                  nomT.setText(cat.getNom());
                  nbreT.setText(String.valueOf(cat.getNbre_participants()));
                  lieuxT.setText(cat.getLieu());
@@ -189,7 +214,7 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
                  ResultSet resultSet = null;
                 
                Evenement ca= new Evenement();
-     ca.setId(Integer.parseInt(idT.getText()));
+     //ca.setId(Integer.parseInt(idT.getText()));
                  ca.setNom(nomT.getText());
                  ca.setLieu(lieuxT.getText());
                  ca.setType(typeT.getText());
@@ -216,8 +241,47 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
      
  });
 
+ 
+        Stage stage = new Stage();
+        btn_image.setOnAction(e -> {
+            stage.setTitle("File Chooser ");
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open image File");
+
+            file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                imageT.setText(file.getAbsolutePath());
+                System.out.println(file.getAbsolutePath());
+                imageT.setText("");
+
+                try {
+
+                    fis = new FileInputStream(file);// file is selected using filechooser which is in last tutorial
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Admin_LocationController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    //     Image image=  new Image(file.toURI().toString());
+                    URL url1 = file.toURI().toURL();
+                    System.out.println(new Image(url1.toExternalForm()));
+                    //image_post.setImage(new Image(url1.toExternalForm()));
+                } catch (MalformedURLException ex) {
+
+                    Logger.getLogger(Admin_LocationController.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
+
+            };
+
+        });
+
+    
+ 
      }    
 
+    
     
      public void ChargerEvenement() {
         
@@ -226,7 +290,7 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
 
         ObservableList observableList = FXCollections.observableArrayList(listeEvenement);
         tableView.setItems(observableList);
-       idT.setText("");
+   //    idT.setText("");
             nomT.setText("");
             nbreT.setText("");
             lieuxT.setText("");
@@ -343,7 +407,7 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
              * ******************
              */
             
-       idT.setText(Integer.toString(maisons_hotes.getId()));
+     //  idT.setText(Integer.toString(maisons_hotes.getId()));
             nomT.setText(maisons_hotes.getNom());
            // dateT.setDate(maisons_hotes.getDateDebut());
             nbreT.setText(Integer.toString(maisons_hotes.getNbre_participants()));
@@ -372,8 +436,9 @@ cat = (Evenement) tableView.getSelectionModel().getSelectedItem();
              LocalDate localDateFin = dateFT.getValue();
             Instant instant1 = Instant.from(localDateFin.atStartOfDay(ZoneId.systemDefault()));
             java.util.Date datefin = Date.from(instant1);
-            java.sql.Date dtfin = new java.sql.Date(datefin.getTime());
-            Evenement e = new Evenement( Integer.valueOf(idT.getText()),nomT.getText(),dtdebut,Integer.valueOf(nbreT.getText())
+           java.sql.Date dtfin = new java.sql.Date(datefin.getTime());
+           
+           Evenement e = new Evenement(nomT.getText(),dtdebut,Integer.valueOf(nbreT.getText())
                     , lieuxT.getText(), Double.valueOf(prixT.getText()), typeT.getText(), dtfin);
             e.setId_user(Controller.getUserId());
             serviceEvenement.ajouterEvenement(e);
@@ -435,6 +500,50 @@ dateFT.setDayCellFactory(dayCellFactoryfin);
         stage.setScene(scene);
         stage.show();  
     }
+    
+    
+
+    @FXML
+    private void addImage(MouseEvent event) {
+        FileChooser fc = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (.png)", "*.PNG");
+        fc.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File selectedFile = fc.showOpenDialog(null);
+        try {
+            BufferedImage bufferedImage = ImageIO.read(selectedFile);
+            Image imageF = SwingFXUtils.toFXImage(bufferedImage, null);
+            imagexw.setImage(imageF);
+        } catch (IOException ex) {
+            System.out.println("add image");
+        }
+    }
+    
+      // random
+    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    public static String randomAlphaNumeric(int count) {
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
+    }
+
+
+    public static String saveToFileImageNormal(Image image) throws SQLException, IOException {
+
+        String ext = "jpg";
+        File dir = new File("C:/Users/LENOVO/Desktop/oussama/Projet/piz/src/image");
+        String name = String.format("%s.%s", randomAlphaNumeric(10), ext);
+        File outputFile = new File(dir, name);
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        ImageIO.write(bImage, "png", outputFile);
+        return name;
+    }
+
 
 
     

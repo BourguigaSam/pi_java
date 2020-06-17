@@ -29,12 +29,11 @@ public Panier(int id,Personne personne,Produit produit,int quantity,float prix,D
     this.prix=prix;
     this.date_p=date_p;
 }
-public Panier(Personne personne,Produit produit,int quantity,float prix,Date date_p){
+public Panier(Personne personne,Produit produit,int quantity,float prix){
     this.personne=personne;
     this.produit=produit;
     this.quantity=quantity;
     this.prix=prix;
-    this.date_p=date_p;
 }
 
     public int getId() {

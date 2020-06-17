@@ -5,6 +5,7 @@
  */
 package com.esprit.services;
 
+import com.esprit.Core.Controller;
 import com.esprit.models.Blog;
 import com.esprit.utils.DataSource;
 import java.sql.Connection;
@@ -28,17 +29,11 @@ public class ServiceBlog {
         try {
             String requete = "INSERT INTO blog (title,content,image) VALUES (?,?,?)";
             PreparedStatement pst = cnx.prepareStatement(requete);
-        //    pst.setInt(1, b.getId());
             pst.setString(1, b.getTitle());
             pst.setString(2, b.getContent());
             pst.setString(3, b.getImage());
-          //  pst.setInt(5, b.getRepliesnumber());
-           // pst.setInt(6, b.getLikesnumber());
-           // pst.setString(2, b.getTitle());
-            
             pst.executeUpdate();
             System.out.println("Blog ajoutée !");
-
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -77,7 +72,7 @@ public class ServiceBlog {
 
     public List<Blog> afficherBlog() {
         List<Blog> blog_list = new ArrayList<>();
-
+            System.out.println(Controller.getUserId());
         try {
             String requete = "SELECT * FROM blog";
             PreparedStatement pst = cnx.prepareStatement(requete);

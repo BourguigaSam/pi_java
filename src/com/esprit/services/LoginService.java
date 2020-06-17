@@ -33,7 +33,8 @@ public class LoginService {
     ResultSet rs;
     Connection cnx= DataSource.getInstance().getCnx();
     public Statement ste;
-    
+    public static Personne ConnectedUser = new Personne();
+
     public LoginService() {
         try {
             ste = cnx.createStatement();
@@ -48,6 +49,8 @@ public class LoginService {
         prs.setString(1, user.getUsername());
         prs.setString(2, user.getPassword());
         rs = prs.executeQuery();
+                  ConnectedUser = (Personne)rs;
+                  System.out.println(ConnectedUser);
         return "good job u made it here";
     }
     
